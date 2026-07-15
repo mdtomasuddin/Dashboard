@@ -77,7 +77,9 @@
 
         <!-- Main Content -->
         <main class="h-[calc(100vh-8rem)] overflow-y-auto p-4 lg:p-6">
+            <!--begin::exam-->
             @yield('content')
+            <!--end::exam-->
             <!-- Footer -->
             @include('backend.layouts.partials.footer')
         </main>
