@@ -1,3 +1,4 @@
+<!--begin: Header-->
 <header role="banner"
     class="sticky top-0 z-30 bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 shadow-sm">
     <!--begin: Header Inner Wrapper-->
@@ -103,3 +104,4 @@
     </div>
     <!--end: Mobile Search Bar-->
 </header>
+<!--end: Header-->
