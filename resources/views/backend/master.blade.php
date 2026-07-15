@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--begin:html-->
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{
     sidebarOpen: true,
     sidebarHover: false,
@@ -31,8 +32,11 @@
     }
 }" x-init="init()">
 
+
+<!--begin::Head-->
+
 <head>
-    {{-- Prevent white flash on refresh when dark mode is enabled --}}
+    <!--begin::Dark Mode Script-->
     <script>
         (function() {
             var darkMode = localStorage.getItem('darkMode');
@@ -44,6 +48,7 @@
             }
         })();
     </script>
+    <!--end::Dark Mode Script-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -55,16 +60,20 @@
     @include('backend.layouts.partials.style')
     @include('backend.layouts.partials.favicon')
 </head>
+<!--end::Head-->
+
+<!--begin::Body-->
 
 <body class="font-sans antialiased bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 overflow-hidden">
 
-    <!-- Mobile Overlay -->
+    <!--begin::Mobile Sidebar Overlay-->
     <div x-show="mobileSidebarOpen" x-cloak x-transition:enter="transition-opacity ease-linear duration-300"
         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
         x-transition:leave="transition-opacity ease-linear duration-300" x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0" @click="mobileSidebarOpen = false"
         class="sidebar-overlay fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden">
     </div>
+    <!--end::Mobile Sidebar Overlay-->
 
     <!-- Sidebar -->
     @include('backend.layouts.partials.sidebar')
@@ -88,5 +97,7 @@
     <!-- Scripts -->
     @include('backend.layouts.partials.scripts')
 </body>
+<!--end::Body-->
 
 </html>
+<!--end:html-->

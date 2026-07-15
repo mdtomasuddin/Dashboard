@@ -77,6 +77,7 @@
 </script>
 <!--end: Tailwind Config Script-->
 
+<!--begin::exam-->
 <!--begin: Custom Styles-->
 <style>
     ::-webkit-scrollbar {
@@ -183,29 +184,36 @@
         color: #64748b;
         text-decoration: none;
     }
+
     .dark .nav-link {
         color: #94a3b8;
     }
+
     .nav-link:hover {
         background-color: rgba(241, 245, 249, 0.6);
         color: #1e293b;
     }
+
     .dark .nav-link:hover {
         background-color: rgba(30, 41, 59, 0.6);
         color: #e2e8f0;
     }
+
     .nav-link.active {
         background-color: #fff7ed;
         color: #c2410c;
     }
+
     .dark .nav-link.active {
         background-color: rgba(249, 115, 22, 0.1);
         color: #fb923c;
     }
+
     .nav-link.active .nav-icon {
         background-color: #ffedd5;
         color: #ea580c;
     }
+
     .dark .nav-link.active .nav-icon {
         background-color: rgba(249, 115, 22, 0.2);
         color: #fb923c;
@@ -223,12 +231,15 @@
         color: #94a3b8;
         transition: all 0.15s ease;
     }
+
     .dark .nav-icon {
         color: #64748b;
     }
+
     .nav-link:hover .nav-icon {
         color: #475569;
     }
+
     .dark .nav-link:hover .nav-icon {
         color: #cbd5e1;
     }
@@ -245,14 +256,17 @@
         color: #c2410c;
         margin-left: auto;
     }
+
     .dark .nav-badge {
         background-color: rgba(249, 115, 22, 0.15);
         color: #fb923c;
     }
+
     .nav-badge.badge-new {
         background-color: #f0fdf4;
         color: #16a34a;
     }
+
     .dark .nav-badge.badge-new {
         background-color: rgba(22, 163, 74, 0.15);
         color: #4ade80;
@@ -274,29 +288,36 @@
         color: #64748b;
         width: 100%;
     }
+
     .dark .nav-toggle {
         color: #94a3b8;
     }
+
     .nav-toggle:hover {
         background-color: rgba(241, 245, 249, 0.6);
         color: #1e293b;
     }
+
     .dark .nav-toggle:hover {
         background-color: rgba(30, 41, 59, 0.6);
         color: #e2e8f0;
     }
+
     .nav-toggle.active {
         background-color: #fff7ed;
         color: #c2410c;
     }
+
     .dark .nav-toggle.active {
         background-color: rgba(249, 115, 22, 0.1);
         color: #fb923c;
     }
+
     .nav-toggle.active .nav-icon {
         background-color: #ffedd5;
         color: #ea580c;
     }
+
     .dark .nav-toggle.active .nav-icon {
         background-color: rgba(249, 115, 22, 0.2);
         color: #fb923c;
@@ -307,9 +328,11 @@
         transition: transform 0.2s ease;
         color: #94a3b8;
     }
+
     .nav-arrow.rotated {
         transform: rotate(0deg);
     }
+
     .nav-arrow:not(.rotated) {
         transform: rotate(-90deg);
     }
@@ -320,6 +343,7 @@
         padding-left: 1rem;
         border-left: 2px solid #e2e8f0;
     }
+
     .dark .nav-submenu {
         border-left-color: #334155;
     }
@@ -330,13 +354,16 @@
         border-radius: 0.5rem;
         color: #64748b;
     }
+
     .dark .nav-sub-link {
         color: #94a3b8;
     }
+
     .nav-sub-link:hover {
         background-color: rgba(241, 245, 249, 0.6);
         color: #1e293b;
     }
+
     .dark .nav-sub-link:hover {
         background-color: rgba(30, 41, 59, 0.6);
         color: #e2e8f0;
@@ -350,12 +377,15 @@
         flex-shrink: 0;
         transition: color 0.15s ease;
     }
+
     .nav-sub-link:hover .sub-icon {
         color: #f97316;
     }
+
     .dark .sub-icon {
         color: #64748b;
     }
+
     .dark .nav-sub-link:hover .sub-icon {
         color: #fb923c;
     }
@@ -371,3 +401,4 @@
     }
 </style>
 <!--end: Custom Styles-->
+<!--end::exam-->
