@@ -3,27 +3,21 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Guarded([])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     // The model's default values for attributes.
     use HasFactory, Notifiable;
 
-    //table prefix
+    //table name
     protected $table = 'users';
-
-    // The attributes that are mass assignable.
-    protected $guarded = [];
-
-    // The attributes that should be hidden for serialization.
-    protected $hidden = ['password', 'remember_token'];
 
     // The attributes that should be cast.
     protected function casts(): array
@@ -50,7 +44,7 @@ class User extends Authenticatable
         ];
     }
 
-    // Relationships and other model methods can be added here
+    // Relationships
     public function otps()
     {
         return $this->hasMany(OTP::class);
