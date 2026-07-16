@@ -6,15 +6,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 #[Guarded([])]
-#[Hidden(['password', 'remember_token'])]
+#[Hidden(['password', 'remember_token', 'facebook_id', 'google_id', 'apple_id', 'deleted_at'])]
 class User extends Authenticatable
 {
     // The model's default values for attributes.
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     //table name
     protected $table = 'users';
@@ -24,19 +25,24 @@ class User extends Authenticatable
     {
         return [
             'id'                   => 'integer',
-            'email_verified_at'    => 'datetime',
-            'password'             => 'hashed',
-            'phone'                => 'string',
             'first_name'           => 'string',
             'last_name'            => 'string',
+            'username'             => 'string',
+            'phone'                => 'string',
+            'birthday'             => 'date',
+            'email'                => 'string',
             'avatar'               => 'string',
-            'cover_photo'          => 'string',
+            'cover'                => 'string',
+            'location'             => 'string',
             'role'                 => 'string',
-            'linkedin_url'         => 'string',
             'bio'                  => 'string',
+            'password'             => 'hashed',
+            'email_verified_at'    => 'datetime',
             'terms_and_conditions' => 'boolean',
+            'facebook_id'          => 'string',
+            'google_id'            => 'string',
+            'apple_id'             => 'string',
             'status'               => 'string',
-            'calendar'             => 'string',
             'remember_token'       => 'string',
             'created_at'           => 'datetime',
             'updated_at'           => 'datetime',
