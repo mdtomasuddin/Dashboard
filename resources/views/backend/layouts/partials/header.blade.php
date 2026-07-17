@@ -62,20 +62,35 @@
             </div>
             <!--end: Notifications Dropdown Wrapper-->
             <!--begin: Profile Dropdown Wrapper-->
+            @php
+                $headerUser = Auth::user();
+                $headerInitial = strtoupper(substr($headerUser->first_name ?? 'U', 0, 1));
+                $headerAvatar = $headerUser->avatar;
+                $headerHasAvatar = !is_null($headerAvatar);
+            @endphp
             <div class="relative" @click.outside="profileDropdownOpen = false">
                 <button @click="profileDropdownOpen = !profileDropdownOpen"
                     class="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 group">
                     <!--begin: Profile Avatar-->
                     <div
-                        class="w-8 h-8 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white text-sm font-bold shadow-md ring-2 ring-white dark:ring-gray-950">
-                        {{ substr(Auth::user()->first_name ?? 'U', 0, 1) }}
+                        class="w-8 h-8 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white text-sm font-bold shadow-md ring-2 ring-white dark:ring-gray-950 overflow-hidden flex-shrink-0">
+                        @if ($headerHasAvatar)
+                            <img src="{{ $headerAvatar }}" alt="{{ $headerUser->first_name ?? '' }}"
+                                class="w-full h-full object-cover"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                            <div class="w-full h-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white text-sm font-bold"
+                                style="display:none">{{ $headerInitial }}</div>
+                        @else
+                            {{ $headerInitial }}
+                        @endif
                     </div>
                     <!--end: Profile Avatar-->
                     <!--begin: Profile Name Area-->
                     <div class="hidden lg:block text-left">
                         <p class="text-sm font-semibold text-gray-800 dark:text-white leading-tight">
-                            {{ trim((Auth::user()->first_name ?? 'User') . ' ' . (Auth::user()->last_name ?? '')) }}</p>
-                        <p class="text-[10px] text-gray-400 dark:text-gray-500 leading-tight">Admin</p>
+                            {{ trim(($headerUser->first_name ?? 'User') . ' ' . ($headerUser->last_name ?? '')) }}</p>
+                        <p class="text-[10px] text-gray-400 dark:text-gray-500 leading-tight">
+                            {{ ucfirst($headerUser->role ?? 'Admin') }}</p>
                     </div>
                     <!--end: Profile Name Area-->
                     <i

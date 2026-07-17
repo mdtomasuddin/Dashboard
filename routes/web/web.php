@@ -14,7 +14,8 @@ Route::get('/dashboard', function () {
 
 // ! Auth Routes
 require 'v1/auth/auth.php';
+require 'v1/settings/settings.php';
 
 // ! User Management Routes
-Route::resource('users', UserManagementController::class)->except(['show'])->middleware(['auth', 'verified']);
+Route::resource('users', UserManagementController::class)->middleware(['auth', 'verified']);
 Route::post('user/status/{id}', [UserManagementController::class, 'status'])->middleware(['auth', 'verified']);
