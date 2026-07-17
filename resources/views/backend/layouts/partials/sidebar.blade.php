@@ -59,7 +59,7 @@
 
             <!--begin::UsersLink-->
             <li class="nav-item">
-                <a class="nav-link {{ Route::is('users.*') ? 'active' : '' }}" href="#">
+                <a class="nav-link {{ Route::is('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
                     <i class="fa-solid fa-users nav-icon"></i>Users
                 </a>
             </li>
