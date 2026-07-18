@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Web\V1\Auth;
 
 use App\Http\Controllers\Controller;
@@ -17,7 +16,7 @@ class PasswordController extends Controller
     {
         $validated = $request->validateWithBag('updatePassword', [
             'current_password' => ['required', 'current_password'],
-            'password' => ['required', Password::defaults(), 'confirmed'],
+            'password'         => ['required', Password::defaults(), 'confirmed'],
         ]);
 
         $request->user()->update([

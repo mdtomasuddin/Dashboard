@@ -56,8 +56,9 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <!-- begin:page-title -->
             <div>
-                <h2 class="text-2xl font-extrabold text-gray-800 dark:text-white">Profile Settings</h2>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your account information and preferences</p>
+                <h2 class="text-2xl font-extrabold text-gray-800 dark:text-white">Account Settings</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Review and manage your personal details, security
+                    preferences, and active sessions</p>
             </div>
             <!-- end:page-title -->
             <!-- begin:page-actions -->
@@ -115,351 +116,362 @@
             </div>
             <!-- end:tab-navigation -->
 
-            <!-- begin:profile-form -->
-            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="mt-6">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="_tab" x-model="tab">
+            <!-- begin:tab-contents-wrapper -->
+            <div class="mt-6">
 
-                <!-- ═══════════════════════════════════════════ -->
-                <!-- TAB 1: PERSONAL INFORMATION                 -->
-                <!-- ═══════════════════════════════════════════ -->
+                <!-- begin:profile-form -->
+                <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="_tab" x-model="tab">
 
-                <!-- begin:tab-personal -->
-                <div x-show="tab === 'personal'" x-cloak x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!-- TAB 1: PERSONAL INFORMATION                 -->
+                    <!-- ═══════════════════════════════════════════ -->
 
-                    <!-- begin:personal-card -->
-                    <div
-                        class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-card overflow-hidden">
+                    <!-- begin:tab-personal -->
+                    <div x-show="tab === 'personal'" x-cloak x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 translate-y-4"
+                        x-transition:enter-end="opacity-100 translate-y-0">
 
-                        <!-- begin:personal-header -->
-                        <div class="p-5 lg:p-6 border-b border-gray-100 dark:border-gray-800">
-                            <!-- begin:personal-header-inner -->
-                            <div class="flex items-center gap-3">
-                                <!-- begin:personal-icon -->
+                        <!-- begin:personal-card -->
+                        <div
+                            class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-card overflow-hidden">
+
+                            <!-- begin:personal-header -->
+                            <div class="p-5 lg:p-6 border-b border-gray-100 dark:border-gray-800">
+                                <!-- begin:personal-header-inner -->
+                                <div class="flex items-center gap-3">
+                                    <!-- begin:personal-icon -->
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-solid fa-user text-primary-600 dark:text-primary-400"></i>
+                                    </div>
+                                    <!-- end:personal-icon -->
+                                    <!-- begin:personal-title -->
+                                    <div>
+                                        <h3 class="text-base font-bold text-gray-800 dark:text-white">Personal Information
+                                        </h3>
+                                        <p class="text-sm text-gray-400 dark:text-gray-500">Manage your personal profile and
+                                            contact details</p>
+                                    </div>
+                                    <!-- end:personal-title -->
+                                </div>
+                                <!-- end:personal-header-inner -->
+                            </div>
+                            <!-- end:personal-header -->
+
+                            <!-- begin:personal-body -->
+                            <div class="p-5 lg:p-6 space-y-5">
+
+                                <!-- begin:name-row -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                                    <!-- begin:first-name -->
+                                    <div>
+                                        <label for="first_name"
+                                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                                            First Name <span class="text-red-500">*</span>
+                                        </label>
+                                        <input type="text" id="first_name" name="first_name"
+                                            value="{{ old('first_name', $user->first_name) }}"
+                                            class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
+                                            placeholder="John" required>
+                                    </div>
+                                    <!-- end:first-name -->
+                                    <!-- begin:last-name -->
+                                    <div>
+                                        <label for="last_name"
+                                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                                            Last Name
+                                        </label>
+                                        <input type="text" id="last_name" name="last_name"
+                                            value="{{ old('last_name', $user->last_name) }}"
+                                            class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
+                                            placeholder="Doe">
+                                    </div>
+                                    <!-- end:last-name -->
+                                </div>
+                                <!-- end:name-row -->
+
+                                <!-- begin:email-phone-row -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                                    <!-- begin:email -->
+                                    <div>
+                                        <label for="email"
+                                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                                            Email Address <span class="text-red-500">*</span>
+                                        </label>
+                                        <input type="email" id="email" name="email"
+                                            value="{{ old('email', $user->email) }}"
+                                            class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
+                                            placeholder="john@example.com" required>
+                                    </div>
+                                    <!-- end:email -->
+                                    <!-- begin:phone -->
+                                    <div>
+                                        <label for="phone"
+                                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                                            Phone Number
+                                        </label>
+                                        <input type="tel" id="phone" name="phone"
+                                            value="{{ old('phone', $user->phone) }}"
+                                            class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
+                                            placeholder="+880 1XXX-XXXXXX">
+                                    </div>
+                                    <!-- end:phone -->
+                                </div>
+                                <!-- end:email-phone-row -->
+
+                                <!-- begin:birthday-location-row -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                                    <!-- begin:birthday -->
+                                    <div>
+                                        <label for="birthday"
+                                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                                            Date of Birth
+                                        </label>
+                                        <!-- begin:birthday-input-wrapper -->
+                                        <div class="relative">
+                                            <i
+                                                class="fa-solid fa-calendar absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                                            <input type="date" id="birthday" name="birthday"
+                                                value="{{ old('birthday', $user->birthday?->format('Y-m-d')) }}"
+                                                class="w-full pl-9 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all">
+                                        </div>
+                                        <!-- end:birthday-input-wrapper -->
+                                    </div>
+                                    <!-- end:birthday -->
+                                    <!-- begin:location -->
+                                    <div>
+                                        <label for="location"
+                                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                                            Location
+                                        </label>
+                                        <!-- begin:location-input-wrapper -->
+                                        <div class="relative">
+                                            <i
+                                                class="fa-solid fa-location-dot absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                                            <input type="text" id="location" name="location"
+                                                value="{{ old('location', $user->location) }}"
+                                                class="w-full pl-9 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
+                                                placeholder="Dhaka, Bangladesh">
+                                        </div>
+                                        <!-- end:location-input-wrapper -->
+                                    </div>
+                                    <!-- end:location -->
+                                </div>
+                                <!-- end:birthday-location-row -->
+
+                                <!-- begin:personal-actions -->
                                 <div
-                                    class="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center flex-shrink-0">
-                                    <i class="fa-solid fa-user text-primary-600 dark:text-primary-400"></i>
+                                    class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
+                                    <button type="submit"
+                                        class="px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-xl text-sm font-medium transition-all shadow-lg shadow-primary-600/20">
+                                        <i class="fa-solid fa-floppy-disk mr-1.5"></i>
+                                        Save Changes
+                                    </button>
                                 </div>
-                                <!-- end:personal-icon -->
-                                <!-- begin:personal-title -->
-                                <div>
-                                    <h3 class="text-base font-bold text-gray-800 dark:text-white">Personal Information</h3>
-                                    <p class="text-sm text-gray-400 dark:text-gray-500">Step 1: Your basic details</p>
-                                </div>
-                                <!-- end:personal-title -->
-                            </div>
-                            <!-- end:personal-header-inner -->
-                        </div>
-                        <!-- end:personal-header -->
+                                <!-- end:personal-actions -->
 
-                        <!-- begin:personal-body -->
-                        <div class="p-5 lg:p-6 space-y-5">
-
-                            <!-- begin:name-row -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                                <!-- begin:first-name -->
-                                <div>
-                                    <label for="first_name"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                                        First Name <span class="text-red-500">*</span>
-                                    </label>
-                                    <input type="text" id="first_name" name="first_name"
-                                        value="{{ old('first_name', $user->first_name) }}"
-                                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
-                                        placeholder="John" required>
-                                </div>
-                                <!-- end:first-name -->
-                                <!-- begin:last-name -->
-                                <div>
-                                    <label for="last_name"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                                        Last Name
-                                    </label>
-                                    <input type="text" id="last_name" name="last_name"
-                                        value="{{ old('last_name', $user->last_name) }}"
-                                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
-                                        placeholder="Doe">
-                                </div>
-                                <!-- end:last-name -->
                             </div>
-                            <!-- end:name-row -->
-
-                            <!-- begin:email-phone-row -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                                <!-- begin:email -->
-                                <div>
-                                    <label for="email"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                                        Email Address <span class="text-red-500">*</span>
-                                    </label>
-                                    <input type="email" id="email" name="email"
-                                        value="{{ old('email', $user->email) }}"
-                                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
-                                        placeholder="john@example.com" required>
-                                </div>
-                                <!-- end:email -->
-                                <!-- begin:phone -->
-                                <div>
-                                    <label for="phone"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                                        Phone Number
-                                    </label>
-                                    <input type="tel" id="phone" name="phone"
-                                        value="{{ old('phone', $user->phone) }}"
-                                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
-                                        placeholder="+880 1XXX-XXXXXX">
-                                </div>
-                                <!-- end:phone -->
-                            </div>
-                            <!-- end:email-phone-row -->
-
-                            <!-- begin:birthday-location-row -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                                <!-- begin:birthday -->
-                                <div>
-                                    <label for="birthday"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                                        Date of Birth
-                                    </label>
-                                    <!-- begin:birthday-input-wrapper -->
-                                    <div class="relative">
-                                        <i
-                                            class="fa-solid fa-calendar absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                                        <input type="date" id="birthday" name="birthday"
-                                            value="{{ old('birthday', $user->birthday?->format('Y-m-d')) }}"
-                                            class="w-full pl-9 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all">
-                                    </div>
-                                    <!-- end:birthday-input-wrapper -->
-                                </div>
-                                <!-- end:birthday -->
-                                <!-- begin:location -->
-                                <div>
-                                    <label for="location"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                                        Location
-                                    </label>
-                                    <!-- begin:location-input-wrapper -->
-                                    <div class="relative">
-                                        <i
-                                            class="fa-solid fa-location-dot absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                                        <input type="text" id="location" name="location"
-                                            value="{{ old('location', $user->location) }}"
-                                            class="w-full pl-9 pr-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
-                                            placeholder="Dhaka, Bangladesh">
-                                    </div>
-                                    <!-- end:location-input-wrapper -->
-                                </div>
-                                <!-- end:location -->
-                            </div>
-                            <!-- end:birthday-location-row -->
-
-                            <!-- begin:personal-actions -->
-                            <div
-                                class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
-                                <button type="submit"
-                                    class="px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-xl text-sm font-medium transition-all shadow-lg shadow-primary-600/20">
-                                    <i class="fa-solid fa-floppy-disk mr-1.5"></i>
-                                    Save Changes
-                                </button>
-                            </div>
-                            <!-- end:personal-actions -->
+                            <!-- end:personal-body -->
 
                         </div>
-                        <!-- end:personal-body -->
+                        <!-- end:personal-card -->
 
                     </div>
-                    <!-- end:personal-card -->
+                    <!-- end:tab-personal -->
 
-                </div>
-                <!-- end:tab-personal -->
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!-- TAB 2: PROFILE MEDIA                       -->
+                    <!-- ═══════════════════════════════════════════ -->
 
-                <!-- ═══════════════════════════════════════════ -->
-                <!-- TAB 2: PROFILE MEDIA                       -->
-                <!-- ═══════════════════════════════════════════ -->
+                    <!-- begin:tab-media -->
+                    <div x-show="tab === 'media'" x-cloak x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 translate-y-4"
+                        x-transition:enter-end="opacity-100 translate-y-0">
 
-                <!-- begin:tab-media -->
-                <div x-show="tab === 'media'" x-cloak x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
+                        <!-- begin:media-card -->
+                        <div
+                            class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-card overflow-hidden">
 
-                    <!-- begin:media-card -->
-                    <div
-                        class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-card overflow-hidden">
-
-                        <!-- begin:media-header -->
-                        <div class="p-5 lg:p-6 border-b border-gray-100 dark:border-gray-800">
-                            <!-- begin:media-header-inner -->
-                            <div class="flex items-center gap-3">
-                                <!-- begin:media-icon -->
-                                <div
-                                    class="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center flex-shrink-0">
-                                    <i class="fa-solid fa-image text-primary-600 dark:text-primary-400"></i>
+                            <!-- begin:media-header -->
+                            <div class="p-5 lg:p-6 border-b border-gray-100 dark:border-gray-800">
+                                <!-- begin:media-header-inner -->
+                                <div class="flex items-center gap-3">
+                                    <!-- begin:media-icon -->
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i class="fa-solid fa-image text-primary-600 dark:text-primary-400"></i>
+                                    </div>
+                                    <!-- end:media-icon -->
+                                    <!-- begin:media-title -->
+                                    <div>
+                                        <h3 class="text-base font-bold text-gray-800 dark:text-white">Profile Media</h3>
+                                        <p class="text-sm text-gray-400 dark:text-gray-500">Update your visual identity and
+                                            public biography</p>
+                                    </div>
+                                    <!-- end:media-title -->
                                 </div>
-                                <!-- end:media-icon -->
-                                <!-- begin:media-title -->
+                                <!-- end:media-header-inner -->
+                            </div>
+                            <!-- end:media-header -->
+
+                            <!-- begin:media-body -->
+                            <div class="p-5 lg:p-6 space-y-6">
+
+                                <!-- begin:avatar-upload -->
                                 <div>
-                                    <h3 class="text-base font-bold text-gray-800 dark:text-white">Profile Media</h3>
-                                    <p class="text-sm text-gray-400 dark:text-gray-500">Step 2: Avatar, cover photo & bio
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Avatar
+                                        Image</label>
+                                    <!-- begin:avatar-upload-row -->
+                                    <div class="flex items-start gap-5">
+                                        <!-- begin:avatar-preview -->
+                                        <div class="flex-shrink-0">
+                                            <div id="avatar_preview_container"
+                                                class="w-28 h-28 rounded-xl bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center overflow-hidden relative group cursor-pointer"
+                                                onclick="document.getElementById('avatar_input').click()">
+                                                @if ($user->avatar)
+                                                    <img id="avatar_preview" src="{{ $user->avatar }}"
+                                                        class="w-full h-full object-cover">
+                                                    <!-- begin:avatar-hover-overlay -->
+                                                    <div
+                                                        class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                        <i class="fa-solid fa-camera text-white text-xl"></i>
+                                                    </div>
+                                                    <!-- end:avatar-hover-overlay -->
+                                                @else
+                                                    <!-- begin:avatar-placeholder -->
+                                                    <div class="text-center">
+                                                        <i id="avatar_placeholder_icon"
+                                                            class="fa-solid fa-user text-4xl text-gray-400"></i>
+                                                        <img id="avatar_preview" class="w-full h-full object-cover"
+                                                            style="display:none;" />
+                                                    </div>
+                                                    <!-- end:avatar-placeholder -->
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <!-- end:avatar-preview -->
+                                        <!-- begin:avatar-controls -->
+                                        <div class="flex-1 min-w-0">
+                                            <input type="file" id="avatar_input" name="avatar" accept="image/*"
+                                                class="hidden"
+                                                onchange="previewImage(this, 'avatar_preview', 'avatar_placeholder_icon')">
+                                            <!-- begin:avatar-buttons -->
+                                            <div class="mt-1 flex items-center gap-2">
+                                                <label for="avatar_input"
+                                                    class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-white transition-all cursor-pointer shadow-sm">
+                                                    <i class="fa-solid fa-upload"></i> Choose Image
+                                                </label>
+                                                @if ($user->avatar)
+                                                    <button type="button" onclick="removeAvatar()"
+                                                        class="px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all">Remove</button>
+                                                @endif
+                                            </div>
+                                            <!-- end:avatar-buttons -->
+                                            <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">
+                                                <i class="fa-solid fa-circle-info mr-1"></i> JPG, PNG, WebP. Max 2MB.
+                                                Square
+                                                image recommended.
+                                            </p>
+                                        </div>
+                                        <!-- end:avatar-controls -->
+                                    </div>
+                                    <!-- end:avatar-upload-row -->
+                                </div>
+                                <!-- end:avatar-upload -->
+
+                                <!-- begin:cover-upload -->
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cover
+                                        Photo</label>
+                                    <!-- begin:cover-upload-wrapper -->
+                                    <div class="relative">
+                                        <div id="cover_preview_container"
+                                            class="w-full h-36 sm:h-44 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 overflow-hidden relative group cursor-pointer"
+                                            onclick="document.getElementById('cover_input').click()">
+                                            @if ($user->cover)
+                                                <img id="cover_preview" src="{{ $user->cover }}"
+                                                    class="w-full h-full object-cover">
+                                            @else
+                                                <!-- begin:cover-placeholder -->
+                                                <div
+                                                    class="absolute inset-0 flex flex-col items-center justify-center text-gray-400">
+                                                    <i id="cover_placeholder_icon"
+                                                        class="fa-solid fa-image text-4xl mb-2"></i>
+                                                    <p class="text-sm">Click to upload cover photo</p>
+                                                    <p class="text-xs mt-1">16:9 ratio recommended</p>
+                                                </div>
+                                                <!-- end:cover-placeholder -->
+                                                <img id="cover_preview" class="w-full h-full object-cover"
+                                                    style="display:none;" />
+                                            @endif
+                                            <!-- begin:cover-hover-overlay -->
+                                            <div
+                                                class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <i class="fa-solid fa-camera text-white text-2xl"></i>
+                                            </div>
+                                            <!-- end:cover-hover-overlay -->
+                                        </div>
+                                        <input type="file" id="cover_input" name="cover" accept="image/*"
+                                            class="hidden"
+                                            onchange="previewImage(this, 'cover_preview', 'cover_placeholder_icon')">
+                                        @if ($user->cover)
+                                            <button type="button" onclick="removeCover()"
+                                                class="absolute top-3 right-3 w-8 h-8 bg-black/50 hover:bg-black/70 text-white rounded-lg flex items-center justify-center transition-all z-10">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </button>
+                                        @endif
+                                    </div>
+                                    <!-- end:cover-upload-wrapper -->
+                                    <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">
+                                        <i class="fa-solid fa-circle-info mr-1"></i> JPG, PNG, WebP. Max 5MB.
                                     </p>
                                 </div>
-                                <!-- end:media-title -->
-                            </div>
-                            <!-- end:media-header-inner -->
-                        </div>
-                        <!-- end:media-header -->
+                                <!-- end:cover-upload -->
 
-                        <!-- begin:media-body -->
-                        <div class="p-5 lg:p-6 space-y-6">
-
-                            <!-- begin:avatar-upload -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Avatar
-                                    Image</label>
-                                <!-- begin:avatar-upload-row -->
-                                <div class="flex items-start gap-5">
-                                    <!-- begin:avatar-preview -->
-                                    <div class="flex-shrink-0">
-                                        <div id="avatar_preview_container"
-                                            class="w-28 h-28 rounded-xl bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center overflow-hidden relative group cursor-pointer"
-                                            onclick="document.getElementById('avatar_input').click()">
-                                            @if ($user->avatar)
-                                                <img id="avatar_preview" src="{{ $user->avatar }}"
-                                                    class="w-full h-full object-cover">
-                                                <!-- begin:avatar-hover-overlay -->
-                                                <div
-                                                    class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                                    <i class="fa-solid fa-camera text-white text-xl"></i>
-                                                </div>
-                                                <!-- end:avatar-hover-overlay -->
-                                            @else
-                                                <!-- begin:avatar-placeholder -->
-                                                <div class="text-center">
-                                                    <i id="avatar_placeholder_icon"
-                                                        class="fa-solid fa-user text-4xl text-gray-400"></i>
-                                                    <img id="avatar_preview" class="w-full h-full object-cover"
-                                                        style="display:none;" />
-                                                </div>
-                                                <!-- end:avatar-placeholder -->
-                                            @endif
-                                        </div>
+                                <!-- begin:bio-section -->
+                                <div>
+                                    <label for="bio"
+                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Bio</label>
+                                    <textarea id="bio" name="bio" rows="4" maxlength="500"
+                                        oninput="updateCharCount(this, 'bio_count', 500)"
+                                        class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all resize-none"
+                                        placeholder="Tell us a little about yourself...">{{ old('bio', $user->bio) }}</textarea>
+                                    <!-- begin:bio-footer -->
+                                    <div class="flex items-center justify-between mt-1.5">
+                                        <p class="text-xs text-gray-400 dark:text-gray-500">Share your story, interests, or
+                                            expertise.</p>
+                                        <span id="bio_count" class="text-xs text-gray-400 dark:text-gray-500">
+                                            {{ strlen(old('bio', $user->bio ?? '')) }}/500
+                                        </span>
                                     </div>
-                                    <!-- end:avatar-preview -->
-                                    <!-- begin:avatar-controls -->
-                                    <div class="flex-1 min-w-0">
-                                        <input type="file" id="avatar_input" name="avatar" accept="image/*"
-                                            class="hidden"
-                                            onchange="previewImage(this, 'avatar_preview', 'avatar_placeholder_icon')">
-                                        <!-- begin:avatar-buttons -->
-                                        <div class="mt-1 flex items-center gap-2">
-                                            <label for="avatar_input"
-                                                class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-white transition-all cursor-pointer shadow-sm">
-                                                <i class="fa-solid fa-upload"></i> Choose Image
-                                            </label>
-                                            @if ($user->avatar)
-                                                <button type="button" onclick="removeAvatar()"
-                                                    class="px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all">Remove</button>
-                                            @endif
-                                        </div>
-                                        <!-- end:avatar-buttons -->
-                                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">
-                                            <i class="fa-solid fa-circle-info mr-1"></i> JPG, PNG, WebP. Max 2MB. Square
-                                            image recommended.
-                                        </p>
-                                    </div>
-                                    <!-- end:avatar-controls -->
+                                    <!-- end:bio-footer -->
                                 </div>
-                                <!-- end:avatar-upload-row -->
-                            </div>
-                            <!-- end:avatar-upload -->
+                                <!-- end:bio-section -->
 
-                            <!-- begin:cover-upload -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cover
-                                    Photo</label>
-                                <!-- begin:cover-upload-wrapper -->
-                                <div class="relative">
-                                    <div id="cover_preview_container"
-                                        class="w-full h-36 sm:h-44 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 overflow-hidden relative group cursor-pointer"
-                                        onclick="document.getElementById('cover_input').click()">
-                                        @if ($user->cover)
-                                            <img id="cover_preview" src="{{ $user->cover }}"
-                                                class="w-full h-full object-cover">
-                                        @else
-                                            <!-- begin:cover-placeholder -->
-                                            <div
-                                                class="absolute inset-0 flex flex-col items-center justify-center text-gray-400">
-                                                <i id="cover_placeholder_icon"
-                                                    class="fa-solid fa-image text-4xl mb-2"></i>
-                                                <p class="text-sm">Click to upload cover photo</p>
-                                                <p class="text-xs mt-1">16:9 ratio recommended</p>
-                                            </div>
-                                            <!-- end:cover-placeholder -->
-                                            <img id="cover_preview" class="w-full h-full object-cover"
-                                                style="display:none;" />
-                                        @endif
-                                        <!-- begin:cover-hover-overlay -->
-                                        <div
-                                            class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <i class="fa-solid fa-camera text-white text-2xl"></i>
-                                        </div>
-                                        <!-- end:cover-hover-overlay -->
-                                    </div>
-                                    <input type="file" id="cover_input" name="cover" accept="image/*"
-                                        class="hidden"
-                                        onchange="previewImage(this, 'cover_preview', 'cover_placeholder_icon')">
-                                    @if ($user->cover)
-                                        <button type="button" onclick="removeCover()"
-                                            class="absolute top-3 right-3 w-8 h-8 bg-black/50 hover:bg-black/70 text-white rounded-lg flex items-center justify-center transition-all z-10">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                    @endif
+                                <!-- begin:media-actions -->
+                                <div
+                                    class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
+                                    <button type="submit"
+                                        class="px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-xl text-sm font-medium transition-all shadow-lg shadow-primary-600/20">
+                                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> Save Changes
+                                    </button>
                                 </div>
-                                <!-- end:cover-upload-wrapper -->
-                                <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">
-                                    <i class="fa-solid fa-circle-info mr-1"></i> JPG, PNG, WebP. Max 5MB.
-                                </p>
-                            </div>
-                            <!-- end:cover-upload -->
+                                <!-- end:media-actions -->
 
-                            <!-- begin:bio-section -->
-                            <div>
-                                <label for="bio"
-                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Bio</label>
-                                <textarea id="bio" name="bio" rows="4" maxlength="500"
-                                    oninput="updateCharCount(this, 'bio_count', 500)"
-                                    class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all resize-none"
-                                    placeholder="Tell us a little about yourself...">{{ old('bio', $user->bio) }}</textarea>
-                                <!-- begin:bio-footer -->
-                                <div class="flex items-center justify-between mt-1.5">
-                                    <p class="text-xs text-gray-400 dark:text-gray-500">Share your story, interests, or
-                                        expertise.</p>
-                                    <span id="bio_count" class="text-xs text-gray-400 dark:text-gray-500">
-                                        {{ strlen(old('bio', $user->bio ?? '')) }}/500
-                                    </span>
-                                </div>
-                                <!-- end:bio-footer -->
                             </div>
-                            <!-- end:bio-section -->
-
-                            <!-- begin:media-actions -->
-                            <div
-                                class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
-                                <button type="submit"
-                                    class="px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-xl text-sm font-medium transition-all shadow-lg shadow-primary-600/20">
-                                    <i class="fa-solid fa-floppy-disk mr-1.5"></i> Save Changes
-                                </button>
-                            </div>
-                            <!-- end:media-actions -->
+                            <!-- end:media-body -->
 
                         </div>
-                        <!-- end:media-body -->
+                        <!-- end:media-card -->
 
                     </div>
-                    <!-- end:media-card -->
+                    <!-- end:tab-media -->
 
-                </div>
-                <!-- end:tab-media -->
+                </form>
+                <!-- end:profile-form -->
 
                 <!-- ═══════════════════════════════════════════ -->
                 <!-- TAB 3: CHANGE PASSWORD                     -->
@@ -485,9 +497,9 @@
                                 <!-- end:password-icon -->
                                 <!-- begin:password-title -->
                                 <div>
-                                    <h3 class="text-base font-bold text-gray-800 dark:text-white">Change Password</h3>
-                                    <p class="text-sm text-gray-400 dark:text-gray-500">Ensure your account is secure with
-                                        a strong password</p>
+                                    <h3 class="text-base font-bold text-gray-800 dark:text-white">Account Security</h3>
+                                    <p class="text-sm text-gray-400 dark:text-gray-500">Maintain account security by
+                                        regularly updating your password</p>
                                 </div>
                                 <!-- end:password-title -->
                             </div>
@@ -499,6 +511,7 @@
                         <form action="{{ route('profile.password') }}" method="POST" class="p-5 lg:p-6">
                             @csrf
                             @method('PUT')
+                            <input type="hidden" name="_tab" x-model="tab">
 
                             <!-- begin:password-fields-row -->
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 mb-5">
@@ -554,6 +567,10 @@
                                         <input type="password" id="password_confirmation" name="password_confirmation"
                                             class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
                                             placeholder="Re-enter new password" required>
+                                        <button type="button" onclick="togglePassword('password_confirmation', this)"
+                                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
                                     </div>
                                     <!-- end:confirm-password-input-wrapper -->
                                 </div>
@@ -563,7 +580,8 @@
                             <!-- end:password-fields-row -->
 
                             <!-- begin:password-actions -->
-                            <div class="flex items-center justify-end">
+                            <div
+                                class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
                                 <button type="submit"
                                     class="px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-xl text-sm font-medium transition-all shadow-lg shadow-primary-600/20">
                                     <i class="fa-solid fa-key mr-1.5"></i> Update Password
@@ -607,9 +625,10 @@
                                     <!-- end:sessions-icon -->
                                     <!-- begin:sessions-title -->
                                     <div>
-                                        <h3 class="text-base font-bold text-gray-800 dark:text-white">Active Sessions</h3>
-                                        <p class="text-sm text-gray-400 dark:text-gray-500">Manage your active login
-                                            sessions</p>
+                                        <h3 class="text-base font-bold text-gray-800 dark:text-white">Session Management
+                                        </h3>
+                                        <p class="text-sm text-gray-400 dark:text-gray-500">Review and control active
+                                            device connections to your account</p>
                                     </div>
                                     <!-- end:sessions-title -->
                                 </div>
@@ -756,8 +775,9 @@
                                 <!-- end:danger-icon -->
                                 <!-- begin:danger-title -->
                                 <div>
-                                    <h3 class="text-base font-bold text-red-600 dark:text-red-400">Danger Zone</h3>
-                                    <p class="text-sm text-gray-400 dark:text-gray-500">Irreversible account actions</p>
+                                    <h3 class="text-base font-bold text-red-600 dark:text-red-400">Account Deletion</h3>
+                                    <p class="text-sm text-gray-400 dark:text-gray-500">Permanently remove your account and
+                                        associated data</p>
                                 </div>
                                 <!-- end:danger-title -->
                             </div>
@@ -791,8 +811,8 @@
                 </div>
                 <!-- end:tab-danger -->
 
-            </form>
-            <!-- end:profile-form -->
+            </div>
+            <!-- end:tab-contents-wrapper -->
 
         </div>
         <!-- end:tab-wrapper -->

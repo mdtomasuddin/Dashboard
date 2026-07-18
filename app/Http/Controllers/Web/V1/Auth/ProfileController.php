@@ -34,17 +34,17 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $user = Auth::user();
+        $user      = Auth::user();
         $validated = $request->validated();
 
         $userData = [
             'first_name' => $validated['first_name'],
-            'last_name' => $validated['last_name'] ?? $user->last_name,
-            'email' => $validated['email'],
-            'phone' => $validated['phone'] ?? $user->phone,
-            'birthday' => $validated['birthday'] ?? $user->birthday?->format('Y-m-d'),
-            'location' => $validated['location'] ?? $user->location,
-            'bio' => $validated['bio'] ?? $user->bio,
+            'last_name'  => $validated['last_name'] ?? $user->last_name,
+            'email'      => $validated['email'],
+            'phone'      => $validated['phone'] ?? $user->phone,
+            'birthday'   => $validated['birthday'] ?? $user->birthday?->format('Y-m-d'),
+            'location'   => $validated['location'] ?? $user->location,
+            'bio'        => $validated['bio'] ?? $user->bio,
         ];
 
         //Handle avatar upload
@@ -67,7 +67,7 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.')
             ->with('toast', [
-                'type' => 'success',
+                'type'    => 'success',
                 'message' => 'Your profile has been updated successfully.',
             ]);
     }
@@ -79,17 +79,16 @@ class ProfileController extends Controller
     {
         $validated = $request->validate([
             'current_password' => ['required', 'current_password'],
-            'password' => ['required', Password::defaults(), 'confirmed'],
+            'password'         => ['required', Password::defaults(), 'confirmed'],
         ]);
 
         $request->user()->update([
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('profile.edit')
-            ->with('success', 'Password updated successfully.')
+        return redirect()->route('profile.edit')->with('success', 'Password updated successfully.')
             ->with('toast', [
-                'type' => 'success',
+                'type'    => 'success',
                 'message' => 'Your password has been changed.',
             ]);
     }
@@ -106,13 +105,12 @@ class ProfileController extends Controller
         Auth::logoutOtherDevices($request->password);
 
         // Delete all sessions except current
-        DB::connection('mysql')->table('sessions')->where('user_id', Auth::id())
-            ->where('id', '!=', session()->getId())->delete();
+        DB::connection('mysql')->table('sessions')->where('user_id', Auth::id())->where('id', '!=', session()->getId())->delete();
 
         return redirect()->route('profile.edit')
             ->with('success', 'Other sessions logged out successfully.')
             ->with('toast', [
-                'type' => 'success',
+                'type'    => 'success',
                 'message' => 'All other sessions have been terminated.',
             ]);
     }
