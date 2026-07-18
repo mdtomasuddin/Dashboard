@@ -399,6 +399,35 @@
             display: block !important;
         }
     }
+
+    /* DataTable Custom Styles */
+    .dt-length select {
+        border: 1px solid #e5e7eb !important;
+        border-radius: 0.375rem !important;
+        padding: 0.25rem 1.5rem 0.25rem 0.5rem !important;
+        background-color: transparent !important;
+    }
+
+    .dt-search input {
+        border: 1px solid #e5e7eb !important;
+        border-radius: 0.375rem !important;
+        padding: 0.25rem 0.5rem !important;
+        background-color: transparent !important;
+    }
+
+    .dark .dt-length select,
+    .dark .dt-search input {
+        border-color: #374151 !important;
+    }
+
+    /* DataTable Custom Styles */
 </style>
 <!--end: Custom Styles-->
 <!--end::exam-->
+
+<!--begin: Vendor CSS -->
+<link rel="stylesheet" href="{{ asset('assets/backend/vendor/datatables/dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/backend/vendor/datatables/responsive.dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/backend/vendor/sweetalert2/sweetalert2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/backend/vendor/toastr/toastr.min.css') }}" />
+<!--end: Vendor CSS -->

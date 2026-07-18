@@ -21,6 +21,7 @@
             </p>
         </div>
         <!--end: Page Title Area-->
+
         <!--begin: Page Actions-->
         <div class="flex items-center gap-2">
             <a href="{{ route('users.create') }}"
@@ -37,90 +38,36 @@
     <div
         class="w-11/12 mx-auto bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-card p-6">
         <!--begin: Table Wrapper-->
-        <div class="overflow-x-auto">
-            <div class="inline-block min-w-full align-middle">
-                {{-- top margin-4 --}}
-                <table id="users-table" class="min-w-full divide-y divide-gray-100 dark:divide-gray-800">
-                    <!--begin: Table Head-->
-                    <thead class="mt-[-5px]">
-                        <tr
-                            class="text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider px-4 py-3.5">
-                            <th> Avatar</th>
-                            <th> Name</th>
-                            <th> Email</th>
-                            <th> Phone</th>
-                            <th> Status</th>
-                            <th> Joined</th>
-                            <th> Actions</th>
-                        </tr>
-                    </thead>
-                    <!--end: Table Head-->
-                    <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <table id="users-table" class="min-w-full divide-y divide-gray-100 dark:divide-gray-800 whitespace-nowrap">
+            <!--begin: Table Head-->
+            <thead class="mt-[-5px]">
+                <tr
+                    class="text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider px-4 py-3.5">
+                    <th> Avatar</th>
+                    <th> Name</th>
+                    <th> Email</th>
+                    <th> Phone</th>
+                    <th> Status</th>
+                    <th> Joined</th>
+                    <th> Actions</th>
+                </tr>
+            </thead>
+            <!--end: Table Head-->
+            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+            </tbody>
+        </table>
         <!--end: Table Wrapper-->
     </div>
     <!--end: Users Table Card-->
 @endsection
 
 @push('scripts')
-    <!--begin: DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.dataTables.css">
-
-    <!--begin: SweetAlert2 & Toastr -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-    <!--begin: DataTables JS -->
-    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/responsive/3.0.0/js/dataTables.responsive.js"></script>
-
-    <style>
-        .dt-length select {
-            border: 1px solid #e5e7eb !important;
-            border-radius: 0.375rem !important;
-            padding: 0.25rem 1.5rem 0.25rem 0.5rem !important;
-            background-color: transparent !important;
-        }
-
-        .dt-search input {
-            border: 1px solid #e5e7eb !important;
-            border-radius: 0.375rem !important;
-            padding: 0.25rem 0.5rem !important;
-            background-color: transparent !important;
-        }
-
-        .dark .dt-length select,
-        .dark .dt-search input {
-            border-color: #374151 !important;
-        }
-    </style>
-
     <script>
         $(document).ready(function() {
-            // Toastr options
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true,
-                "positionClass": "toast-top-right",
-            };
-
-            const isDark = document.documentElement.classList.contains('dark');
-
             // Initialize DataTable
             const table = $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
-                responsive: true,
-                language: {
-                    lengthMenu: "Show _MENU_ entries",
-                    search: "",
-                    searchPlaceholder: "Search..."
-                },
                 ajax: "{{ route('users.index') }}",
                 columns: [{
                         data: 'avatar',
@@ -188,7 +135,7 @@
                             _token: '{{ csrf_token() }}'
                         },
                         success: function(res) {
-                            toastr.success(res.message || 'Status updated successfully');
+                            toastr.success(res.message);
                             $('#users-table').DataTable().ajax.reload(null, false);
                         },
                         error: function() {
@@ -226,7 +173,7 @@
                             _token: '{{ csrf_token() }}'
                         },
                         success: function(res) {
-                            toastr.success(res.message || 'User deleted successfully');
+                            toastr.success(res.message);
                             $('#users-table').DataTable().ajax.reload(null, false);
                         },
                         error: function() {
