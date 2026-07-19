@@ -40,7 +40,7 @@
         <!--begin: Table Wrapper-->
         <table id="users-table" class="w-full !border-b-0 divide-y divide-gray-100 dark:divide-gray-800 whitespace-nowrap">
             <!--begin: Table Head-->
-            <thead class="mt-[-5px]">
+            <thead>
                 <tr
                     class="text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider px-4 py-3.5">
                     <th> Avatar</th>
@@ -53,8 +53,10 @@
                 </tr>
             </thead>
             <!--end: Table Head-->
+            <!--begin: Table Body-->
             <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
             </tbody>
+            <!--end: Table Body-->
         </table>
         <!--end: Table Wrapper-->
     </div>
@@ -74,7 +76,6 @@
                         name: 'avatar',
                         orderable: false,
                         searchable: false,
-                        className: 'text-center',
                     },
                     {
                         data: 'name',
@@ -93,7 +94,6 @@
                         name: 'status',
                         orderable: false,
                         searchable: false,
-                        className: 'text-center',
                     },
                     {
                         data: 'created_at',
@@ -105,7 +105,6 @@
                         name: 'action',
                         orderable: false,
                         searchable: false,
-                        className: 'text-center',
                     }
                 ],
                 order: [],

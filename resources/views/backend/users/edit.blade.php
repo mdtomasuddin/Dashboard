@@ -35,33 +35,9 @@
     </div>
     <!--end: Page Header Wrapper-->
 
-    <!--begin: Error Messages-->
-    @if ($errors->any())
-        <div
-            class="mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl w-11/12 mx-auto">
-            <div class="flex items-center gap-2 mb-2 text-sm font-medium text-red-700 dark:text-red-400">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <span>Please fix the following errors:</span>
-            </div>
-            <ul class="list-disc list-inside text-sm text-red-600 dark:text-red-400 space-y-1">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    <!--end: Error Messages-->
-
     <!--begin: Edit User Form Card-->
     <div
         class="w-11/12 mx-auto bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-card">
-        <div class="p-5 lg:p-6 border-b border-gray-100 dark:border-gray-800">
-            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Edit User</h3>
-            <p class="text-sm text-gray-400 dark:text-gray-500 mt-0.5">
-                Update the information for <strong
-                    class="text-gray-600 dark:text-gray-300">{{ trim($user->first_name . ' ' . ($user->last_name ?? '')) }}</strong>.
-            </p>
-        </div>
 
         <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data"
             class="p-5 lg:p-6">
@@ -186,7 +162,6 @@
                     icon.classList.add('fa-eye');
                 }
             }
-
         </script>
     @endpush
 @endsection
