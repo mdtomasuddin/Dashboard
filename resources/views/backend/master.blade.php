@@ -58,6 +58,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     @include('backend.layouts.partials.style')
+    <link rel="stylesheet" href="{{ asset('assets/backend/css/backend.css') }}">
     @include('backend.layouts.partials.favicon')
 </head>
 <!--end::Head-->

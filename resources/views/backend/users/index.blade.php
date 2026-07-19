@@ -5,44 +5,36 @@
 @endsection
 
 @section('content')
-    <!--begin: Page Header Wrapper-->
-    <div class="w-11/12 mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+    <!--begin: Page Header-->
+    <div class="page-header">
         <!--begin: Page Title Area-->
-        <div>
-            <!-- Breadcrumb -->
-            <nav class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-500">
-                <a href="{{ route('dashboard') }}" class="hover:text-primary-600 transition-colors">Dashboard</a>
-                <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                <span class="text-gray-600 dark:text-gray-300 font-medium">Users</span>
+        <div class="page-title-box">
+            <nav class="breadcrumb">
+                <a href="{{ route('dashboard') }}" class="breadcrumb-link">Dashboard</a>
+                <i class="fa-solid fa-chevron-right breadcrumb-separator"></i>
+                <span class="breadcrumb-active">Users</span>
             </nav>
-            <!-- Page Description-->
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 mb-2">
+            <p class="page-description">
                 User Management: View, search, and manage all users in the system.
             </p>
         </div>
         <!--end: Page Title Area-->
-
-        <!--begin: Page Actions-->
-        <div class="flex items-center gap-2">
-            <a href="{{ route('users.create') }}"
-                class="flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-xl text-sm font-medium transition-all shadow-lg shadow-primary-600/20">
+        <!--begin: Actions-->
+        <div class="page-actions">
+            <a href="{{ route('users.create') }}" class="btn-primary">
                 <i class="fa-solid fa-plus"></i>
                 <span>Add New User</span>
             </a>
         </div>
-        <!--end: Page Actions-->
+        <!--end: Actions-->
     </div>
-    <!--end: Page Header Wrapper-->
+    <!--end: Page Header-->
 
-    <!--begin: Users Table Card-->
-    <div
-        class="w-11/12 mx-auto bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-card p-6">
-        <!--begin: Table Wrapper-->
-        <table id="users-table" class="w-full !border-b-0 divide-y divide-gray-100 dark:divide-gray-800 whitespace-nowrap">
-            <!--begin: Table Head-->
+    <!--begin:Table Card-->
+    <div class="card">
+        <table id="users-table" class="table">
             <thead>
-                <tr
-                    class="text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider px-4 py-3.5">
+                <tr>
                     <th> Avatar</th>
                     <th> Name</th>
                     <th> Email</th>
@@ -52,15 +44,12 @@
                     <th> Actions</th>
                 </tr>
             </thead>
-            <!--end: Table Head-->
-            <!--begin: Table Body-->
-            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+            <tbody>
+                {{-- The table body will be populated by DataTables via AJAX --}}
             </tbody>
-            <!--end: Table Body-->
         </table>
-        <!--end: Table Wrapper-->
     </div>
-    <!--end: Users Table Card-->
+    <!--end: Table Card-->
 @endsection
 
 @push('scripts')
