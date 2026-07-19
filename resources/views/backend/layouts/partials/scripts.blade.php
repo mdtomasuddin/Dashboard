@@ -18,7 +18,6 @@
 <script src="{{ asset('assets/backend/vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('assets/backend/vendor/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('assets/backend/vendor/datatables/dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/backend/vendor/datatables/responsive.dataTables.min.js') }}"></script>
 <!--end: Vendor JS -->
 
 <script>

@@ -15,7 +15,7 @@
                 <i class="fa-solid fa-chevron-right text-[10px]"></i>
                 <span class="text-gray-600 dark:text-gray-300 font-medium">Users</span>
             </nav>
-            <!-- Page Description (Optional) -->
+            <!-- Page Description-->
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 mb-2">
                 User Management: View, search, and manage all users in the system.
             </p>
@@ -38,7 +38,7 @@
     <div
         class="w-11/12 mx-auto bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-card p-6">
         <!--begin: Table Wrapper-->
-        <table id="users-table" class="min-w-full divide-y divide-gray-100 dark:divide-gray-800 whitespace-nowrap">
+        <table id="users-table" class="!w-full divide-y divide-gray-100 dark:divide-gray-800 whitespace-nowrap">
             <!--begin: Table Head-->
             <thead class="mt-[-5px]">
                 <tr
@@ -63,8 +63,8 @@
 
 @push('scripts')
     <script>
+        // Initialize DataTable with server-side processing
         $(document).ready(function() {
-            // Initialize DataTable
             const table = $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
@@ -112,20 +112,15 @@
             });
         });
 
-        /**
-         * Change User Status (Toggle active/inactive)
-         */
+        //Change User Status (Toggle active/inactive)
         function changeStatus(event, id) {
             event.preventDefault();
-
             Swal.fire({
-                title: 'Update Status?',
-                text: 'Are you sure you want to change the status of this user?',
-                icon: 'info',
+                title: 'Change status?',
+                text: 'Are you sure you want to toggle the status?',
+                icon: 'question',
                 showCancelButton: true,
-                confirmButtonColor: '#4e73df',
-                cancelButtonColor: '#858796',
-                confirmButtonText: 'Yes, change it!'
+                confirmButtonText: 'Yes, change it!',
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -150,20 +145,15 @@
             });
         }
 
-        /**
-         * Delete User with SweetAlert confirmation
-         */
+        //Delete User with SweetAlert confirmation
         function deleteRecord(event, id) {
             event.preventDefault();
-
             Swal.fire({
                 title: 'Are you sure?',
-                text: 'All associated data will be lost forever!',
+                text: 'This action cannot be undone!',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#e74a3b',
-                cancelButtonColor: '#858796',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Yes, delete it!',
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
