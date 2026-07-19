@@ -35,7 +35,10 @@
     $.extend(true, $.fn.dataTable.defaults, {
         autoWidth: false,
         responsive: false,
-        scrollX: true,
+        scrollX: false,
+        dom: "<'flex flex-col sm:flex-row justify-between items-center mb-4 gap-4'lf>" +
+             "<'overflow-x-auto overflow-y-hidden w-full'tr>" +
+             "<'flex flex-col sm:flex-row justify-between items-center mt-4 gap-4'ip>",
         language: {
             lengthMenu: "Show _MENU_ entries",
             search: "",

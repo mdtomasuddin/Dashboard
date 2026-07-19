@@ -38,7 +38,7 @@
     <div
         class="w-11/12 mx-auto bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-card p-6">
         <!--begin: Table Wrapper-->
-        <table id="users-table" class="!w-full divide-y divide-gray-100 dark:divide-gray-800 whitespace-nowrap">
+        <table id="users-table" class="w-full !border-b-0 divide-y divide-gray-100 dark:divide-gray-800 whitespace-nowrap">
             <!--begin: Table Head-->
             <thead class="mt-[-5px]">
                 <tr

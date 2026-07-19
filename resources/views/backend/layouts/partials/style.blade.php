@@ -81,8 +81,8 @@
 <!--begin: Custom Styles-->
 <style>
     ::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
+        width: 5px;
+        height: 6px;
     }
 
     ::-webkit-scrollbar-track {
@@ -418,6 +418,16 @@
     .dark .dt-length select,
     .dark .dt-search input {
         border-color: #374151 !important;
+        color: #f3f4f6 !important;
+    }
+
+    .dark .dt-length select option {
+        background-color: #1f2937 !important;
+        color: #f3f4f6 !important;
+    }
+
+    table.dataTable.no-footer {
+        border-bottom: none !important;
     }
 
     /* DataTable Custom Styles */
