@@ -18,6 +18,8 @@
 <script src="{{ asset('assets/backend/vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('assets/backend/vendor/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('assets/backend/vendor/datatables/dataTables.min.js') }}"></script>
+{{-- ckeditor5 --}}
+<script src="{{ asset('assets/backend/vendor/ckeditor5/ckeditor.js') }}"></script>
 <!--end: Vendor JS -->
 
 <script>
@@ -37,8 +39,8 @@
         responsive: false,
         scrollX: false,
         dom: "<'flex flex-col sm:flex-row justify-between items-center mb-4 gap-4'lf>" +
-             "<'overflow-x-auto overflow-y-hidden w-full'tr>" +
-             "<'flex flex-col sm:flex-row justify-between items-center mt-4 gap-4'ip>",
+            "<'overflow-x-auto overflow-y-hidden w-full'tr>" +
+            "<'flex flex-col sm:flex-row justify-between items-center mt-4 gap-4'ip>",
         language: {
             lengthMenu: "Show _MENU_ entries",
             search: "",
