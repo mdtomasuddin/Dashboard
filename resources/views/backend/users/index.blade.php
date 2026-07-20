@@ -7,8 +7,8 @@
 @section('content')
     <!--begin: Page Header-->
     <div class="page-header">
-        <!--begin: Page Title Area-->
-        <div class="page-title-box">
+        <!--begin: Page Title-->
+        <div class="page-title">
             <nav class="breadcrumb">
                 <a href="{{ route('dashboard') }}" class="breadcrumb-link">Dashboard</a>
                 <i class="fa-solid fa-chevron-right breadcrumb-separator"></i>
@@ -18,7 +18,7 @@
                 User Management: View, search, and manage all users in the system.
             </p>
         </div>
-        <!--end: Page Title Area-->
+        <!--end: Page Title-->
         <!--begin: Actions-->
         <div class="page-actions">
             <a href="{{ route('users.create') }}" class="btn-primary">
