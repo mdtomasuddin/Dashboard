@@ -23,12 +23,25 @@
 <!--end: Vendor JS -->
 
 <script>
-    // Global Toastr options
+    // Starting Global Toastr options
     toastr.options = {
         "closeButton": true,
         "progressBar": true,
         "positionClass": "toast-top-right",
     };
+    @if (Session::has('t-success'))
+        toastr.success("{{ Session::get('t-success') }}");
+    @endif
+    @if (Session::has('t-error'))
+        toastr.error("{{ Session::get('t-error') }}");
+    @endif
+    @if (Session::has('t-info'))
+        toastr.info("{{ Session::get('t-info') }}");
+    @endif
+    @if (Session::has('t-warning'))
+        toastr.warning("{{ Session::get('t-warning') }}");
+    @endif
+    //Ending Toastr options
 
     // Global dark mode check
     window.isDark = document.documentElement.classList.contains('dark');

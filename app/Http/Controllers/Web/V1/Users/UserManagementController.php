@@ -21,6 +21,8 @@ class UserManagementController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param Request $request
+     * @return View|JsonResponse
      */
     public function index(Request $request): View | JsonResponse
     {
@@ -33,7 +35,6 @@ class UserManagementController extends Controller
                     $initials = strtoupper(substr($user->first_name, 0, 1));
                     if ($user->avatar) {
                         $avatarUrl = asset($user->avatar);
-
                         return '<div class="w-14 h-14 rounded-xl bg-white dark:bg-gray-800 shadow-md ring-1 ring-gray-200 dark:ring-gray-700 overflow-hidden flex items-center justify-center">
                             <img src="' . $avatarUrl . '" alt="' . $fullName . '"
                                 class="w-full h-full object-cover"
@@ -41,18 +42,16 @@ class UserManagementController extends Controller
                             <div class="w-full h-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white text-base font-bold" style="display:none">' . $initials . '</div>
                         </div>';
                     }
-
                     return '<div class="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 shadow-md ring-1 ring-primary-200 dark:ring-primary-800 flex items-center justify-center text-white text-base font-bold">' . $initials . '</div>';
                 })
                 ->addColumn('name', function (User $user) {
                     return e(trim($user->first_name . ' ' . ($user->last_name ?? '')));
                 })
                 ->addColumn('created_at', function ($data) {
-                    return $data->created_at ? $data->created_at->format('d-m-y') : '';
+                    return $data->created_at ? $data->created_at->format('d-m-y') : 'N/A';
                 })
                 ->addColumn('status', function (User $user) {
                     $checked = $user->status === 'active' ? 'checked' : '';
-
                     return '<label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" onclick="changeStatus(event, ' . $user->id . ')"
                             class="sr-only peer" ' . $checked . '>
@@ -74,18 +73,15 @@ class UserManagementController extends Controller
                         </button>
                     </div>';
                 })
-                ->orderColumn('name', function ($query, $order) {
-                    $query->orderBy('first_name', $order)->orderBy('last_name', $order);
-                })
                 ->rawColumns(['avatar', 'status', 'action', 'name', 'created_at'])
                 ->make(true);
         }
-
         return view('backend.users.index');
     }
 
     /**
      * Show the form for creating a new resource.
+     * @return View
      */
     public function create(): View
     {
@@ -94,23 +90,22 @@ class UserManagementController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  UserCreateRequest  $request
-     *                                      userService create.
+     * @param UserCreateRequest $request
      */
     public function store(UserCreateRequest $request): RedirectResponse
     {
         try {
             $this->userService->create($request->validated());
 
-            return redirect()->route('users.index')->with('success', 'User created successfully.');
+            return redirect()->route('users.index')->with('t-success', 'User created successfully.');
         } catch (Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Failed to create user: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('t-error', 'Failed to create user: ' . $e->getMessage());
         }
     }
 
     /**
      * Show the form for editing the specified resource.
+     * @param int $id
      */
     public function edit(int $id): View | RedirectResponse
     {
@@ -119,26 +114,29 @@ class UserManagementController extends Controller
 
             return view('backend.users.edit', compact('user'));
         } catch (Exception $e) {
-            return redirect()->route('users.index')->with('error', 'User not found.');
+            return redirect()->route('users.index')->with('t-error', 'User not found.');
         }
     }
 
     /**
      * Update the specified resource in storage.
+     * @param UserUpdateRequest $request
+     * @param int $id
      */
     public function update(UserUpdateRequest $request, int $id): RedirectResponse
     {
         try {
             $this->userService->update($id, $request->validated());
 
-            return redirect()->route('users.index')->with('success', 'User updated successfully.');
+            return redirect()->route('users.index')->with('t-success', 'User updated successfully.');
         } catch (Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Failed to update user: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('t-error', 'Failed to update user: ' . $e->getMessage());
         }
     }
 
     /**
      * Remove the specified resource from storage.
+     * @param int $id
      */
     public function destroy(int $id): JsonResponse
     {
@@ -146,12 +144,12 @@ class UserManagementController extends Controller
             $this->userService->delete($id);
 
             return response()->json([
-                'success' => true,
-                'message' => 'User deleted successfully.',
+                't-success' => true,
+                'message'   => 'User deleted successfully.',
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'success' => false,
+                't-error' => true,
                 'message' => 'Failed to delete user.',
                 'error'   => $e->getMessage(),
             ], 500);
@@ -160,8 +158,9 @@ class UserManagementController extends Controller
 
     /**
      * Toggle user status (active/inactive).
+     * @param int $id
      */
-    public function status(Request $request, int $id): JsonResponse
+    public function status(int $id): JsonResponse
     {
         try {
             $user         = $this->userService->find($id);
@@ -169,12 +168,12 @@ class UserManagementController extends Controller
             $user->save();
 
             return response()->json([
-                'success' => true,
-                'message' => 'Status changed successfully.',
+                't-success' => true,
+                'message'   => 'Status changed successfully.',
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'success' => false,
+                't-error' => true,
                 'message' => 'Failed to update user status.',
                 'error'   => $e->getMessage(),
             ], 500);
