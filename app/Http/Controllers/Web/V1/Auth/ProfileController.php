@@ -23,8 +23,8 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Get active sessions for the security section
-        $sessions = DB::connection('mysql')->table('sessions')->where('user_id', $user->id)
-            ->orderBy('last_activity', 'desc')->get();
+        $sessions = DB::connection('mysql')->table('sessions')
+            ->where('user_id', $user->id)->orderBy('last_activity', 'desc')->get();
 
         return view('backend.profile.edit', compact('user', 'sessions'));
     }
@@ -34,42 +34,39 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $user      = Auth::user();
+        $user = Auth::user();
         $validated = $request->validated();
 
         $userData = [
             'first_name' => $validated['first_name'],
-            'last_name'  => $validated['last_name'] ?? $user->last_name,
-            'email'      => $validated['email'],
-            'phone'      => $validated['phone'] ?? $user->phone,
-            'birthday'   => $validated['birthday'] ?? $user->birthday?->format('Y-m-d'),
-            'location'   => $validated['location'] ?? $user->location,
-            'bio'        => $validated['bio'] ?? $user->bio,
+            'last_name' => $validated['last_name'] ?? $user->last_name,
+            'email' => $validated['email'],
+            'phone' => $validated['phone'] ?? $user->phone,
+            'birthday' => $validated['birthday'] ?? $user->birthday?->format('Y-m-d'),
+            'location' => $validated['location'] ?? $user->location,
+            'bio' => $validated['bio'] ?? $user->bio,
         ];
 
-        //Handle avatar upload
+        // Handle avatar upload
         if ($request->hasFile('avatar')) {
             if ($user->avatar) {
                 Helper::deleteFile($user->avatar);
             }
             $userData['avatar'] = Helper::uploadFile($request->file('avatar'), 'avatar');
         }
-
-        //Handle cover photo upload
+        // Handle cover photo upload
         if ($request->hasFile('cover')) {
             if ($user->cover) {
                 Helper::deleteFile($user->cover);
             }
             $userData['cover'] = Helper::uploadFile($request->file('cover'), 'cover_photo');
         }
-
         $user->update($userData);
 
-        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.')
-            ->with('toast', [
-                'type'    => 'success',
-                'message' => 'Your profile has been updated successfully.',
-            ]);
+        // Determine which tab to redirect back to
+        $tab = $request->input('_tab', 'personal');
+
+        return redirect()->route('profile.edit', ['tab' => $tab])->with('t-success', 'Profile updated successfully.');
     }
 
     /**
@@ -79,18 +76,15 @@ class ProfileController extends Controller
     {
         $validated = $request->validate([
             'current_password' => ['required', 'current_password'],
-            'password'         => ['required', Password::defaults(), 'confirmed'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
         ]);
 
+        // Update the user's password
         $request->user()->update([
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('profile.edit')->with('success', 'Password updated successfully.')
-            ->with('toast', [
-                'type'    => 'success',
-                'message' => 'Your password has been changed.',
-            ]);
+        return redirect()->route('profile.edit', ['tab' => 'password'])->with('t-success', 'Password changed successfully.');
     }
 
     /**
@@ -103,15 +97,9 @@ class ProfileController extends Controller
         ]);
 
         Auth::logoutOtherDevices($request->password);
-
         // Delete all sessions except current
         DB::connection('mysql')->table('sessions')->where('user_id', Auth::id())->where('id', '!=', session()->getId())->delete();
 
-        return redirect()->route('profile.edit')
-            ->with('success', 'Other sessions logged out successfully.')
-            ->with('toast', [
-                'type'    => 'success',
-                'message' => 'All other sessions have been terminated.',
-            ]);
+        return redirect()->route('profile.edit', ['tab' => 'sessions'])->with('t-success', 'All other sessions have been terminated.');
     }
 }

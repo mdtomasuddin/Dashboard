@@ -7,7 +7,7 @@
 @section('content')
     @php
         $user = Auth::user();
-        $activeTab = old('_tab', 'personal'); // personal | media | password | sessions | danger
+        $activeTab = old('_tab', request('tab', 'personal')); // personal | media | password | sessions | danger
     @endphp
 
     <!-- begin:page-wrapper -->
@@ -22,35 +22,6 @@
             <span class="text-gray-600 dark:text-gray-300 font-medium">Edit</span>
         </nav>
         <!-- end:breadcrumb -->
-
-        <!-- begin:alerts -->
-        @if (session('success'))
-            <!-- begin:success-alert -->
-            <div class="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl">
-                <div class="flex items-center gap-2 text-sm font-medium text-green-700 dark:text-green-400">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <span>{{ session('success') }}</span>
-                </div>
-            </div>
-            <!-- end:success-alert -->
-        @endif
-
-        @if ($errors->any())
-            <!-- begin:error-alert -->
-            <div class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
-                <div class="flex items-center gap-2 mb-2 text-sm font-medium text-red-700 dark:text-red-400">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    <span>Please fix the following errors:</span>
-                </div>
-                <ul class="list-disc list-inside text-sm text-red-600 dark:text-red-400 space-y-1">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            <!-- end:error-alert -->
-        @endif
-        <!-- end:alerts -->
 
         <!-- begin:page-header -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
@@ -323,7 +294,7 @@
                                 <!-- begin:avatar-upload -->
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Avatar
-                                        Image</label>
+                                    </label>
                                     <!-- begin:avatar-upload-row -->
                                     <div class="flex items-start gap-5">
                                         <!-- begin:avatar-preview -->
