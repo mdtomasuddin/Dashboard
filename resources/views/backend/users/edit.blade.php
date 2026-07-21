@@ -24,7 +24,7 @@
         <div class="page-actions">
             <a href="{{ route('users.index') }}" class="btn-primary">
                 <i class="fa-solid fa-arrow-left"></i>
-                <span>Back to Users</span>
+                <span>Back</span>
             </a>
         </div>
         <!--end: Actions-->

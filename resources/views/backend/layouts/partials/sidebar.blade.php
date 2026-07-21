@@ -1,5 +1,5 @@
 <!--begin::Sidebar-->
-<aside role="navigation" aria-label="Main navigation"
+<aside role="navigation" aria-label="Main navigation" x-cloak
     class="fixed top-0 left-0 z-50 h-full flex flex-col bg-white dark:bg-sidebar-dark border-r border-gray-200 dark:border-gray-800 sidebar-transition shadow-lg"
     :class="{
         'w-[260px]': isSidebarExpanded(),

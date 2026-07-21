@@ -80,7 +80,7 @@
     @include('backend.layouts.partials.sidebar')
 
     <!-- Main Wrapper -->
-    <div class="transition-all duration-300" :class="isSidebarExpanded() ? 'lg:ml-[260px]' : 'lg:ml-[72px]'">
+    <div class="transition-all duration-300" x-cloak :class="isSidebarExpanded() ? 'lg:ml-[260px]' : 'lg:ml-[72px]'">
 
         <!-- Header -->
         @include('backend.layouts.partials.header')
