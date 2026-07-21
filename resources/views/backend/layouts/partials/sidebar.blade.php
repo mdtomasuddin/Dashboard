@@ -57,105 +57,36 @@
             </li>
             <!--end::UserManagementHeading-->
 
-            <!--begin::UsersLink-->
-            <li class="nav-item">
-                <a class="nav-link {{ Route::is('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                    <i class="fa-solid fa-users nav-icon"></i>Users
-                </a>
+            @php
+                $usersOpen = request()->routeIs('users.*');
+            @endphp
+            <!--begin::UsersDropdown-->
+            <li class="nav-item" x-data="{ open: {{ $usersOpen ? 'true' : 'false' }} }">
+                <button @click="open = !open" class="nav-link nav-toggle w-full text-left"
+                    :class="open ? 'active' : ''">
+                    <i class="fa-solid fa-users nav-icon"></i>
+                    <span class="flex-1 text-left">Users</span>
+                    <i class="fa-solid fa-chevron-down nav-arrow" :class="open ? 'rotated' : ''"></i>
+                </button>
+                <!--begin::UsersSubmenu-->
+                <div x-show="open" x-collapse.duration.200ms class="nav-submenu">
+                    <ul class="flex flex-col">
+                        <li class="nav-item">
+                            <a class="nav-link nav-sub-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
+                                href="{{ route('users.index') }}"><i class="fa-solid fa-list sub-icon"></i>All Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-sub-link {{ request()->routeIs('users.create') ? 'active' : '' }}"
+                                href="{{ route('users.create') }}"><i class="fa-solid fa-user-plus sub-icon"></i>Add
+                                New</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--end::UsersSubmenu-->
             </li>
-            <!--end::UsersLink-->
+            <!--end::UsersDropdown-->
 
-            <!--begin::CustomerManagementHeading-->
-            <li class="nav-item">
-                <div
-                    class="navbar-heading px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                    Customer Management</div>
-            </li>
-            <!--end::CustomerManagementHeading-->
-
-            <!--begin::CustomersLink-->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-people-group nav-icon"></i>All Customers
-                </a>
-            </li>
-            <!--end::CustomersLink-->
-
-            <!--begin::CustomerAnalyticsLink-->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-chart-line nav-icon"></i>Analytics
-                </a>
-            </li>
-            <!--end::CustomerAnalyticsLink-->
-
-            <!--begin::ContentManagementHeading-->
-            <li class="nav-item">
-                <div
-                    class="navbar-heading px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                    Content Management</div>
-            </li>
-            <!--end::ContentManagementHeading-->
-
-            <!--begin::AnalyticsLink-->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-chart-simple nav-icon"></i>Analytics
-                    <span class="nav-badge badge-new">New</span>
-                </a>
-            </li>
-            <!--end::AnalyticsLink-->
-
-            <!--begin::CalendarLink-->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-calendar-days nav-icon"></i>Calendar
-                </a>
-            </li>
-            <!--end::CalendarLink-->
-
-            <!--begin::MessagesLink-->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-envelope nav-icon"></i>Messages
-                    <span class="nav-badge">12</span>
-                </a>
-            </li>
-            <!--end::MessagesLink-->
-
-            <!--begin::NotificationsLink-->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-bell nav-icon"></i>Notifications
-                    <span class="nav-badge">5</span>
-                </a>
-            </li>
-            <!--end::NotificationsLink-->
-
-            <!--begin::FileManagerLink-->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-folder-tree nav-icon"></i>File Manager
-                </a>
-            </li>
-            <!--end::FileManagerLink-->
-
-            <!--begin::ActivityLogsLink-->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-clock-rotate-left nav-icon"></i>Activity Logs
-                </a>
-            </li>
-            <!--end::ActivityLogsLink-->
-
-            <!--begin::AuditLogsLink-->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-scroll nav-icon"></i>Audit Logs
-                </a>
-            </li>
-            <!--end::AuditLogsLink-->
-
+          
             <!--begin::SystemSettingsHeading-->
             <li class="nav-item">
                 <div
@@ -165,11 +96,7 @@
             <!--end::SystemSettingsHeading-->
 
             @php
-                $settingsOpen =
-                    request()->routeIs('mail-setting.index') ||
-                    request()->routeIs('system-setting.index') ||
-                    request()->routeIs('integration.setting') ||
-                    request()->routeIs('social-media-links.*');
+                $settingsOpen = request()->routeIs('mail-setting.*') || request()->routeIs('social-media-links.*');
             @endphp
             <!--begin::SettingsDropdown-->
             <li class="nav-item" x-data="{ open: {{ $settingsOpen ? 'true' : 'false' }} }">
@@ -183,28 +110,13 @@
                 <div x-show="open" x-collapse.duration.200ms class="nav-submenu">
                     <ul class="flex flex-col">
                         <li class="nav-item">
-                            <a class="nav-link nav-sub-link" href="#"><i
-                                    class="fa-solid fa-sliders sub-icon"></i>General</a>
+                            <a class="nav-link nav-sub-link {{ Route::is('mail-setting.*') ? 'active' : '' }}"
+                                href="{{ route('mail-setting.index') }}">
+                                <i class="fa-solid fa-envelope sub-icon"></i>Mail Configuration</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-sub-link" href="#"><i
-                                    class="fa-solid fa-shield sub-icon"></i>Security</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-sub-link" href="#"><i
-                                    class="fa-solid fa-palette sub-icon"></i>Appearance</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-sub-link" href="#"><i
-                                    class="fa-solid fa-at sub-icon"></i>Email</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-sub-link" href="#"><i
-                                    class="fa-solid fa-code sub-icon"></i>API</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-sub-link" href="#"><i
-                                    class="fa-solid fa-database sub-icon"></i>Backup</a>
+                            <a class="nav-link nav-sub-link" href="#">
+                                <i class="fa-solid fa-database sub-icon"></i>Database Back-up</a>
                         </li>
                     </ul>
                 </div>

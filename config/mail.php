@@ -29,31 +29,30 @@ return [
     | when delivering an email. You may specify which one you're using for
     | your mailers below. You may also add additional mailers if needed.
     |
-    | Supported: "smtp", "sendmail", "mailgun", "ses", "ses-v2",
-    |            "postmark", "resend", "log", "array",
-    |            "failover", "roundrobin"
+    | Supported: "smtp", "sendmail", "mailgun", "ses", "ses-v2",|"postmark", "resend", "log", "array",|"failover", "roundrobin"
     |
     */
 
     'mailers' => [
 
-        'smtp' => [
-            'transport' => 'smtp',
-            'scheme' => env('MAIL_SCHEME'),
-            'url' => env('MAIL_URL'),
-            'host' => env('MAIL_HOST', '127.0.0.1'),
-            'port' => env('MAIL_PORT', 2525),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
+        'smtp'       => [
+            'transport'    => 'smtp',
+            'scheme'       => env('MAIL_SCHEME'),
+            'url'          => env('MAIL_URL'),
+            'host'         => env('MAIL_HOST', '127.0.0.1'),
+            'port'         => env('MAIL_PORT', 2525),
+            'username'     => env('MAIL_USERNAME'),
+            'password'     => env('MAIL_PASSWORD'),
+            'encryption'   => env('MAIL_ENCRYPTION', 'tls'),
+            'timeout'      => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 
-        'ses' => [
+        'ses'        => [
             'transport' => 'ses',
         ],
 
-        'postmark' => [
+        'postmark'   => [
             'transport' => 'postmark',
             // 'message_stream_id' => env('POSTMARK_MESSAGE_STREAM_ID'),
             // 'client' => [
@@ -61,27 +60,27 @@ return [
             // ],
         ],
 
-        'resend' => [
+        'resend'     => [
             'transport' => 'resend',
         ],
 
-        'sendmail' => [
+        'sendmail'   => [
             'transport' => 'sendmail',
-            'path' => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -bs -i'),
+            'path'      => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -bs -i'),
         ],
 
-        'log' => [
+        'log'        => [
             'transport' => 'log',
-            'channel' => env('MAIL_LOG_CHANNEL'),
+            'channel'   => env('MAIL_LOG_CHANNEL'),
         ],
 
-        'array' => [
+        'array'      => [
             'transport' => 'array',
         ],
 
-        'failover' => [
-            'transport' => 'failover',
-            'mailers' => [
+        'failover'   => [
+            'transport'   => 'failover',
+            'mailers'     => [
                 'smtp',
                 'log',
             ],
@@ -89,8 +88,8 @@ return [
         ],
 
         'roundrobin' => [
-            'transport' => 'roundrobin',
-            'mailers' => [
+            'transport'   => 'roundrobin',
+            'mailers'     => [
                 'ses',
                 'postmark',
             ],
@@ -103,16 +102,15 @@ return [
     |--------------------------------------------------------------------------
     | Global "From" Address
     |--------------------------------------------------------------------------
-    |
     | You may wish for all emails sent by your application to be sent from
     | the same address. Here you may specify a name and address that is
     | used globally for all emails that are sent by your application.
     |
     */
 
-    'from' => [
+    'from'    => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
+        'name'    => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
 ];
