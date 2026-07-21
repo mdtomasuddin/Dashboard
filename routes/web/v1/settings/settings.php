@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\V1\Auth\ProfileController;
+use App\Http\Controllers\Web\V1\Settings\DatabaseBackupController;
 use App\Http\Controllers\Web\V1\Settings\Mail\MailController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ! Mail SMTP Settings
     Route::resource('mail-setting', MailController::class)->only(['index', 'store']);
     Route::post('mail-setting/test', [MailController::class, 'test'])->name('mail-setting.test');
+
+    // ! Database Backup
+    Route::get('database/export', [DatabaseBackupController::class, 'index'])->name('database.export');
+    Route::match(['GET', 'POST'], 'database/export/download', [DatabaseBackupController::class, 'export'])->name('database.export.download');
 });

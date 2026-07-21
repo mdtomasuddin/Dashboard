@@ -96,7 +96,7 @@
             <!--end::SystemSettingsHeading-->
 
             @php
-                $settingsOpen = request()->routeIs('mail-setting.*') || request()->routeIs('social-media-links.*');
+                $settingsOpen = request()->routeIs('mail-setting.*') || request()->routeIs('database.export') || request()->routeIs('social-media-links.*');
             @endphp
             <!--begin::SettingsDropdown-->
             <li class="nav-item" x-data="{ open: {{ $settingsOpen ? 'true' : 'false' }} }">
@@ -115,8 +115,9 @@
                                 <i class="fa-solid fa-envelope sub-icon"></i>Mail Configuration</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-sub-link" href="#">
-                                <i class="fa-solid fa-database sub-icon"></i>Database Back-up</a>
+                            <a class="nav-link nav-sub-link {{ request()->routeIs('database.export') ? 'active' : '' }}"
+                                href="{{ route('database.export') }}">
+                                <i class="fa-solid fa-database sub-icon"></i>Database Backup</a>
                         </li>
                     </ul>
                 </div>
