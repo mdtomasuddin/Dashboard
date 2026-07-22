@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services\Web\V1\Settings\Mail;
 
 use Exception;
@@ -23,6 +22,7 @@ class MailService
 
     /**
      * Update the .env file with new mail configuration values.
+     *
      * @throws Exception
      */
     public function updateMailConfig(array $data): void

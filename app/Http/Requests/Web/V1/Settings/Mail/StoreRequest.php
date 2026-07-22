@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Requests\Web\V1\Setting\Mail;
+
+namespace App\Http\Requests\Web\V1\Settings\Mail;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web\V1\Settings\Mail;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Web\V1\Setting\Mail\StoreRequest;
+use App\Http\Requests\Web\V1\Settings\Mail\StoreRequest;
 use App\Services\Web\V1\Settings\Mail\MailService;
 use Exception;
 use Illuminate\Contracts\View\View;
