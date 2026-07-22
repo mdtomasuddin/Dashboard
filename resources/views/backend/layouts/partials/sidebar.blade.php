@@ -99,7 +99,9 @@
                 $settingsOpen =
                     request()->routeIs('mail-setting.*') ||
                     request()->routeIs('database.export') ||
-                    request()->routeIs('social-links.*');
+                    request()->routeIs('social-links.*') ||
+                    request()->routeIs('integration.setting') ||
+                    request()->routeIs('*.update');
             @endphp
             <!--begin::SettingsDropdown-->
             <li class="nav-item" x-data="{ open: {{ $settingsOpen ? 'true' : 'false' }} }">
@@ -126,6 +128,11 @@
                             <a class="nav-link nav-sub-link {{ request()->routeIs('social-links.*') ? 'active' : '' }}"
                                 href="{{ route('social-links.index') }}">
                                 <i class="fa-solid fa-link sub-icon"></i>Social Links</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-sub-link {{ request()->routeIs('integration.setting') ? 'active' : '' }}"
+                                href="{{ route('integration.setting') }}">
+                                <i class="fa-solid fa-plug sub-icon"></i>Integrations</a>
                         </li>
                     </ul>
                 </div>
