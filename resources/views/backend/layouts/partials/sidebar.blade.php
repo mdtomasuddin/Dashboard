@@ -86,7 +86,7 @@
             </li>
             <!--end::UsersDropdown-->
 
-          
+
             <!--begin::SystemSettingsHeading-->
             <li class="nav-item">
                 <div
@@ -96,7 +96,10 @@
             <!--end::SystemSettingsHeading-->
 
             @php
-                $settingsOpen = request()->routeIs('mail-setting.*') || request()->routeIs('database.export') || request()->routeIs('social-media-links.*');
+                $settingsOpen =
+                    request()->routeIs('mail-setting.*') ||
+                    request()->routeIs('database.export') ||
+                    request()->routeIs('social-links.*');
             @endphp
             <!--begin::SettingsDropdown-->
             <li class="nav-item" x-data="{ open: {{ $settingsOpen ? 'true' : 'false' }} }">
@@ -118,6 +121,11 @@
                             <a class="nav-link nav-sub-link {{ request()->routeIs('database.export') ? 'active' : '' }}"
                                 href="{{ route('database.export') }}">
                                 <i class="fa-solid fa-database sub-icon"></i>Database Backup</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-sub-link {{ request()->routeIs('social-links.*') ? 'active' : '' }}"
+                                href="{{ route('social-links.index') }}">
+                                <i class="fa-solid fa-link sub-icon"></i>Social Links</a>
                         </li>
                     </ul>
                 </div>

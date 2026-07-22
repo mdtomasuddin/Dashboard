@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\V1\Auth\ProfileController;
 use App\Http\Controllers\Web\V1\Settings\DatabaseBackupController;
 use App\Http\Controllers\Web\V1\Settings\Mail\MailController;
+use App\Http\Controllers\Web\V1\Settings\SocialMediaController;
 use Illuminate\Support\Facades\Route;
 
 // ! Settings Routes
@@ -20,4 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ! Database Backup
     Route::get('database/export', [DatabaseBackupController::class, 'index'])->name('database.export');
     Route::match(['GET', 'POST'], 'database/export/download', [DatabaseBackupController::class, 'export'])->name('database.export.download');
+
+    // ! Social Media Links
+    Route::apiResource('social-links', SocialMediaController::class)->only(['index', 'store', 'destroy']);
 });
