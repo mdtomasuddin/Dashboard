@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Web\V1\Auth\ProfileController;
-use App\Http\Controllers\Web\V1\Settings\DatabaseBackupController;
+use App\Http\Controllers\Web\V1\Settings\DatabaseBackup\DatabaseBackupController;
 use App\Http\Controllers\Web\V1\Settings\Integration\IntegrationController;
 use App\Http\Controllers\Web\V1\Settings\Mail\MailController;
-use App\Http\Controllers\Web\V1\Settings\SocialMediaController;
+use App\Http\Controllers\Web\V1\Settings\SocialMedia\SocialMediaController;
 use Illuminate\Support\Facades\Route;
 
 // ! Settings Routes

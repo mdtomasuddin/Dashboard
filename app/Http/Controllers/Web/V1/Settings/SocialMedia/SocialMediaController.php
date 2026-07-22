@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\V1\Settings;
+namespace App\Http\Controllers\Web\V1\Settings\SocialMedia;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\V1\Settings\SocialMedia\StoreRequest;

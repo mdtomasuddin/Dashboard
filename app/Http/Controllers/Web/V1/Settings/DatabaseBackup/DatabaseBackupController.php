@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\V1\Settings;
+namespace App\Http\Controllers\Web\V1\Settings\DatabaseBackup;
 
 use App\Http\Controllers\Controller;
 use App\Services\Web\V1\Settings\DatabaseBackupService;
