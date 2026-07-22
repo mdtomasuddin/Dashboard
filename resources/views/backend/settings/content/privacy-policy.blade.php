@@ -61,8 +61,8 @@
 
             <!--begin: Content Field-->
             <div class="form-group mb-4">
-                <label for="content" class="form-label mb-2 block">Content</label>
-                <textarea class="form-input @error('content') is-invalid @enderror" id="content" name="content"
+                <label for="summernote" class="form-label mb-2 block">Content</label>
+                <textarea class="form-input @error('content') is-invalid @enderror" id="summernote" name="content"
                     placeholder="Enter content here...">{{ old('content', $privacy_policy->content ?? '') }}</textarea>
                 @error('content')
                     <span class="input-error">{{ $message }}</span>
@@ -86,12 +86,11 @@
 
     @push('scripts')
         <script>
-            // Start Ckeditor5
-            ClassicEditor
-                .create(document.querySelector('#content'))
-                .catch(error => {
-                    console.error(error);
+            $(document).ready(function() {
+                $('#summernote').summernote({
+                    height: 200
                 });
+            });
         </script>
     @endpush
 @endsection

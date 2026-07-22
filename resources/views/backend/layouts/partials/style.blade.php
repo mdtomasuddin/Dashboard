@@ -439,4 +439,5 @@
 <link rel="stylesheet" href="{{ asset('assets/backend/vendor/datatables/dataTables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/backend/vendor/sweetalert2/sweetalert2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/backend/vendor/toastr/toastr.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/backend/vendor/summernote/summernote-lite.min.css') }}" />
 <!--end: Vendor CSS -->

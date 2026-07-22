@@ -18,8 +18,7 @@
 <script src="{{ asset('assets/backend/vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('assets/backend/vendor/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('assets/backend/vendor/datatables/dataTables.min.js') }}"></script>
-{{-- ckeditor5 --}}
-<script src="{{ asset('assets/backend/vendor/ckeditor5/ckeditor.js') }}"></script>
+<script src="{{ asset('assets/backend/vendor/summernote/summernote-lite.min.js') }}"></script>
 <!--end: Vendor JS -->
 
 <script>

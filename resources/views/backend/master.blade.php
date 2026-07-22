@@ -60,6 +60,7 @@
     @include('backend.layouts.partials.style')
     <link rel="stylesheet" href="{{ asset('assets/backend/css/backend.css') }}">
     @include('backend.layouts.partials.favicon')
+    @stack('styles')
 </head>
 <!--end::Head-->
 
