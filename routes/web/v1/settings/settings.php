@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Web\V1\Auth\ProfileController;
+use App\Http\Controllers\Web\V1\Settings\Content\PrivacyPolicyController;
+use App\Http\Controllers\Web\V1\Settings\Content\TermsAndConditionsController;
 use App\Http\Controllers\Web\V1\Settings\DatabaseBackup\DatabaseBackupController;
 use App\Http\Controllers\Web\V1\Settings\Integration\IntegrationController;
 use App\Http\Controllers\Web\V1\Settings\Mail\MailController;
@@ -35,4 +37,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/twilio-setting', 'updateTwilioCredentials')->name('twilio.update');
         Route::patch('/stripe-setting', 'updateStripeCredentials')->name('stripe.update');
     });
+
+    // ! Content Management
+    Route::resource('terms-and-conditions', TermsAndConditionsController::class)->only(['index', 'store']);
+    Route::resource('privacy-policy', PrivacyPolicyController::class)->only(['index', 'store']);
 });

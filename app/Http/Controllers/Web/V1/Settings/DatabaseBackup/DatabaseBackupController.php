@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web\V1\Settings\DatabaseBackup;
 
 use App\Http\Controllers\Controller;
-use App\Services\Web\V1\Settings\DatabaseBackupService;
+use App\Services\Web\V1\Settings\DatabaseBackup\DatabaseBackupService;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;

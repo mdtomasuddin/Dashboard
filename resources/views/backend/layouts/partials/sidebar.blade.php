@@ -87,6 +87,50 @@
             <!--end::UsersDropdown-->
 
 
+
+
+            @php
+                $contentOpen = request()->routeIs('terms-and-conditions.*') || request()->routeIs('privacy-policy.*');
+            @endphp
+            <!--begin::ContentManagementHeading-->
+            <li class="nav-item">
+                <div
+                    class="navbar-heading px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                    Content Management</div>
+            </li>
+            <!--end::ContentManagementHeading-->
+            <!--begin::ContentManagementDropdown-->
+            <li class="nav-item" x-data="{ open: {{ $contentOpen ? 'true' : 'false' }} }">
+                <button @click="open = !open" class="nav-link nav-toggle w-full text-left"
+                    :class="open ? 'active' : ''">
+                    <i class="fa-solid fa-file-pen nav-icon"></i>
+                    <span class="flex-1 text-left">Content</span>
+                    <i class="fa-solid fa-chevron-down nav-arrow" :class="open ? 'rotated' : ''"></i>
+                </button>
+                <!--begin::ContentSubmenu-->
+                <div x-show="open" x-collapse.duration.200ms class="nav-submenu">
+                    <ul class="flex flex-col">
+                        <li class="nav-item">
+                            <a class="nav-link nav-sub-link {{ request()->routeIs('terms-and-conditions.*') ? 'active' : '' }}"
+                                href="{{ route('terms-and-conditions.index') }}">
+                                <i class="fa-solid fa-file-contract sub-icon"></i>Terms &amp; Conditions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-sub-link {{ request()->routeIs('privacy-policy.*') ? 'active' : '' }}"
+                                href="{{ route('privacy-policy.index') }}">
+                                <i class="fa-solid fa-shield-halved sub-icon"></i>Privacy Policy</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--end::ContentSubmenu-->
+            </li>
+            <!--end::ContentManagementDropdown-->
+
+
+
+
+
+
             <!--begin::SystemSettingsHeading-->
             <li class="nav-item">
                 <div
@@ -94,7 +138,6 @@
                     System Settings</div>
             </li>
             <!--end::SystemSettingsHeading-->
-
             @php
                 $settingsOpen =
                     request()->routeIs('mail-setting.*') ||

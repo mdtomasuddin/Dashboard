@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Web\V1\Settings;
+namespace App\Services\Web\V1\Settings\DatabaseBackup;
 
 use Exception;
 use Illuminate\Support\Facades\DB;
