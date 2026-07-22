@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         //add the individual seeders here
         $this->call([
             UserSeeder::class,
+            SocialMediaSeeder::class,
         ]);
     }
 }
