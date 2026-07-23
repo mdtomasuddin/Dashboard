@@ -25,7 +25,6 @@ class ContentSeeder extends Seeder
                 'status'     => 'active',
                 'created_at' => '2025-01-11 23:37:30',
                 'updated_at' => '2025-01-12 23:40:33',
-                'deleted_at' => null,
             ],
             //privacy policy
             [
@@ -37,7 +36,6 @@ class ContentSeeder extends Seeder
                 'status'     => 'active',
                 'created_at' => '2025-01-14 23:37:30',
                 'updated_at' => '2025-01-15 23:40:33',
-                'deleted_at' => null,
             ],
         ];
 
