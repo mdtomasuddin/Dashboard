@@ -515,7 +515,6 @@
 .note-editor .note-toolbar .note-btn-group.note-help,
 .note-editor .note-toolbar button[data-event="showHelpDialog"],
 .note-editor .note-toolbar button[data-name="help"],
-.note-editor .note-toolbar .note-btn-group:has(.note-icon-question),
 .note-editor .note-toolbar .note-btn:has(.note-icon-question) {
     display: none !important;
 }
