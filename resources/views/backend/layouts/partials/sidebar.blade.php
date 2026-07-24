@@ -57,42 +57,20 @@
             </li>
             <!--end::UserManagementHeading-->
 
-            @php
-                $usersOpen = request()->routeIs('users.*');
-            @endphp
-            <!--begin::UsersDropdown-->
-            <li class="nav-item" x-data="{ open: {{ $usersOpen ? 'true' : 'false' }} }">
-                <button @click="open = !open" class="nav-link nav-toggle w-full text-left"
-                    :class="open ? 'active' : ''">
-                    <i class="fa-solid fa-users nav-icon"></i>
-                    <span class="flex-1 text-left">Users</span>
-                    <i class="fa-solid fa-chevron-down nav-arrow" :class="open ? 'rotated' : ''"></i>
-                </button>
-                <!--begin::UsersSubmenu-->
-                <div x-show="open" x-collapse.duration.200ms class="nav-submenu">
-                    <ul class="flex flex-col">
-                        <li class="nav-item">
-                            <a class="nav-link nav-sub-link {{ request()->routeIs('users.index') ? 'active' : '' }}"
-                                href="{{ route('users.index') }}"><i class="fa-solid fa-list sub-icon"></i>All Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-sub-link {{ request()->routeIs('users.create') ? 'active' : '' }}"
-                                href="{{ route('users.create') }}"><i class="fa-solid fa-user-plus sub-icon"></i>Add
-                                New</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--end::UsersSubmenu-->
+            <!--begin::UsersLink-->
+            <li class="nav-item">
+                <a class="nav-link {{ Route::is('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                    <i class="fa-solid fa-users nav-icon"></i>Users
+                </a>
             </li>
-            <!--end::UsersDropdown-->
+            <!--end::UsersLink-->
 
 
 
-
+            <!--begin::ContentManagementHeading-->
             @php
                 $contentOpen = request()->routeIs('terms-and-conditions.*') || request()->routeIs('privacy-policy.*');
             @endphp
-            <!--begin::ContentManagementHeading-->
             <li class="nav-item">
                 <div
                     class="navbar-heading px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
