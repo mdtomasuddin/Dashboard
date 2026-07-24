@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Web\V1\Users;
 
 use App\Http\Controllers\Controller;
@@ -21,15 +22,15 @@ class UserManagementController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param Request $request
-     * @return View|JsonResponse
      */
     public function index(Request $request): View | JsonResponse
     {
         if ($request->ajax()) {
             $query = User::query()->latest();
-
             return DataTables::of($query)
+                ->addColumn('name', function (User $user) {
+                    return e(trim($user->first_name . ' ' . ($user->last_name ?? '')));
+                })
                 ->addColumn('avatar', function (User $user) {
                     $fullName = e(trim($user->first_name . ' ' . ($user->last_name ?? '')));
                     $initials = strtoupper(substr($user->first_name, 0, 1));
@@ -42,16 +43,15 @@ class UserManagementController extends Controller
                             <div class="w-full h-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white text-base font-bold" style="display:none">' . $initials . '</div>
                         </div>';
                     }
+
                     return '<div class="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 shadow-md ring-1 ring-primary-200 dark:ring-primary-800 flex items-center justify-center text-white text-base font-bold">' . $initials . '</div>';
-                })
-                ->addColumn('name', function (User $user) {
-                    return e(trim($user->first_name . ' ' . ($user->last_name ?? '')));
                 })
                 ->addColumn('created_at', function ($data) {
                     return $data->created_at ? $data->created_at->format('d-m-y') : 'N/A';
                 })
                 ->addColumn('status', function (User $user) {
                     $checked = $user->status === 'active' ? 'checked' : '';
+
                     return '<label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" onclick="changeStatus(event, ' . $user->id . ')"
                             class="sr-only peer" ' . $checked . '>
@@ -59,14 +59,14 @@ class UserManagementController extends Controller
                     </label>';
                 })
                 ->addColumn('action', function (User $user) {
-                    return '<div class="flex items-center justify-center gap-1.5">
+                    return '<div class="flex items-center justify-center gap-2">
                         <a href="' . route('users.edit', $user->id) . '"
-                            class="w-8 h-8 flex items-center justify-center rounded-lg text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all"
+                            class="w-8 h-8 flex items-center justify-center rounded-lg text-blue-600 bg-blue-100 hover:bg-blue-600 hover:text-white dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-600 dark:hover:text-white transition-all shadow-sm hover:shadow"
                             title="Edit User">
                             <i class="fa-solid fa-pen-to-square text-sm"></i>
                         </a>
                         <button type="button"
-                            class="w-8 h-8 flex items-center justify-center rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                            class="w-8 h-8 flex items-center justify-center rounded-lg text-red-600 bg-red-100 hover:bg-red-600 hover:text-white dark:text-red-400 dark:bg-red-900/30 dark:hover:bg-red-600 dark:hover:text-white transition-all shadow-sm hover:shadow"
                             onclick="deleteRecord(event, ' . $user->id . ')"
                             title="Delete User">
                             <i class="fa-solid fa-trash-can text-sm"></i>
@@ -76,12 +76,12 @@ class UserManagementController extends Controller
                 ->rawColumns(['avatar', 'status', 'action', 'name', 'created_at'])
                 ->make(true);
         }
+
         return view('backend.users.index');
     }
 
     /**
      * Show the form for creating a new resource.
-     * @return View
      */
     public function create(): View
     {
@@ -90,7 +90,6 @@ class UserManagementController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param UserCreateRequest $request
      */
     public function store(UserCreateRequest $request): RedirectResponse
     {
@@ -105,7 +104,6 @@ class UserManagementController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
      */
     public function edit(int $id): View | RedirectResponse
     {
@@ -120,8 +118,6 @@ class UserManagementController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param UserUpdateRequest $request
-     * @param int $id
      */
     public function update(UserUpdateRequest $request, int $id): RedirectResponse
     {
@@ -136,7 +132,6 @@ class UserManagementController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
      */
     public function destroy(int $id): JsonResponse
     {
@@ -158,7 +153,6 @@ class UserManagementController extends Controller
 
     /**
      * Toggle user status (active/inactive).
-     * @param int $id
      */
     public function status(int $id): JsonResponse
     {
