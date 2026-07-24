@@ -1,0 +1,24 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "dev",
+    "main",
+    "masum",
+    "origin",
+    "tomas"
+  ],
+  "parent": {
+    "dev": "main",
+    "main": null,
+    "masum": "main",
+    "origin": "main",
+    "tomas": "main"
+  },
+  "order": [
+    "main",
+    "dev",
+    "masum",
+    "origin",
+    "tomas"
+  ]
+}
