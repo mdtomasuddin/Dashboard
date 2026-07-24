@@ -15,7 +15,7 @@ class ContentService
     {
         $existing = Content::query()->where('type', $type)->first();
         // Generate slug using the title
-        $data['slug'] = Helper::makeSlug($data['title'], $existing?->id);
+        $data['slug'] = Helper::makeSlug($data['title'], 'contents');
 
         return Content::updateOrCreate(
             ['type' => $type],
