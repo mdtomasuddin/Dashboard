@@ -18,8 +18,8 @@
                 <span class="text-white font-extrabold text-sm">TF</span>
             </div>
             <div x-show="isSidebarExpanded()" x-cloak x-transition.opacity class="whitespace-nowrap">
-                <span class="text-sm font-bold text-gray-800 dark:text-white">Tabassum</span>
-                <span class="text-sm font-bold text-primary-600">Fashion</span>
+                <span class="text-sm font-bold text-gray-800 dark:text-white">T</span>
+                <span class="text-sm font-bold text-primary-600">Dashboard</span>
             </div>
         </a>
         <button @click="mobileSidebarOpen = false"

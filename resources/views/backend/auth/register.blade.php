@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Register - Tabassum Fashion</title>
+  <title>Register - T Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script>tailwind.config={theme:{extend:{colors:{primary:{'50':'#fff7ed','100':'#ffedd5','200':'#fed7aa','300':'#fdba74','400':'#fb923c','500':'#f97316','600':'#ea580c','700':'#c2410c','800':'#9a3412','900':'#7c2d12'}}}}}</script>
@@ -18,14 +18,14 @@
     <div class="w-full max-w-md">
       <div class="text-center mb-8">
         <a href="{{ route('login') }}" class="inline-flex items-center gap-1">
-          <span class="text-3xl font-extrabold text-primary-500">Tabassum</span>
-          <span class="text-3xl font-extrabold text-white">Fashion</span>
+          <span class="text-3xl font-extrabold text-primary-500">T</span>
+          <span class="text-3xl font-extrabold text-white">Dashboard</span>
         </a>
       </div>
 
       <div class="bg-white rounded-3xl p-8 shadow-2xl">
         <h1 class="text-2xl font-extrabold text-center">Create Account</h1>
-        <p class="text-gray-500 text-center mt-2">Join Tabassum Fashion today</p>
+        <p class="text-gray-500 text-center mt-2">Join T Dashboard today</p>
 
         <form method="POST" action="{{ route('register') }}" class="mt-8 space-y-5">
           @csrf
