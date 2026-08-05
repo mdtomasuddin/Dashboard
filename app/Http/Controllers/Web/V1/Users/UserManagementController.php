@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\V1\Users;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\V1\User\UserCreateRequest;
 use App\Http\Requests\Web\V1\User\UserUpdateRequest;
@@ -27,6 +28,7 @@ class UserManagementController extends Controller
     {
         if ($request->ajax()) {
             $query = User::query()->latest();
+
             return DataTables::of($query)
                 ->addColumn('name', function (User $user) {
                     return e(trim($user->first_name . ' ' . ($user->last_name ?? '')));
@@ -36,6 +38,7 @@ class UserManagementController extends Controller
                     $initials = strtoupper(substr($user->first_name, 0, 1));
                     if ($user->avatar) {
                         $avatarUrl = asset($user->avatar);
+
                         return '<div class="w-14 h-14 rounded-xl bg-white dark:bg-gray-800 shadow-md ring-1 ring-gray-200 dark:ring-gray-700 overflow-hidden flex items-center justify-center">
                             <img src="' . $avatarUrl . '" alt="' . $fullName . '"
                                 class="w-full h-full object-cover"
@@ -108,7 +111,7 @@ class UserManagementController extends Controller
     public function edit(int $id): View | RedirectResponse
     {
         try {
-            $user = $this->userService->find($id);
+            $user = User::query()->findOrFail($id);
 
             return view('backend.users.edit', compact('user'));
         } catch (Exception $e) {
@@ -136,7 +139,17 @@ class UserManagementController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            $this->userService->delete($id);
+            $user = User::query()->findOrFail($id);
+
+            // Handle Image Delete
+            if (! empty($user->avatar)) {
+                Helper::deleteFile($user->avatar);
+            }
+            if (! empty($user->cover)) {
+                Helper::deleteFile($user->cover);
+            }
+
+            $user->delete();
 
             return response()->json([
                 't-success' => true,
@@ -157,7 +170,7 @@ class UserManagementController extends Controller
     public function status(int $id): JsonResponse
     {
         try {
-            $user         = $this->userService->find($id);
+            $user         = User::query()->findOrFail($id);
             $user->status = $user->status === 'active' ? 'inactive' : 'active';
             $user->save();
 
