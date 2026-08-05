@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script>tailwind.config={theme:{extend:{colors:{primary:{'50':'#fff7ed','100':'#ffedd5','200':'#fed7aa','300':'#fdba74','400':'#fb923c','500':'#f97316','600':'#ea580c','700':'#c2410c','800':'#9a3412','900':'#7c2d12'}}}}}</script>
   <style>*{font-family:'Inter',system-ui,-apple-system,sans-serif}
-    .auth-bg{background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.8)),url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=1920&q=80') center/cover fixed}
+    .auth-bg{background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.8)),url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1920&q=80') center/cover fixed}
   </style>
 </head>
 <body>
@@ -103,23 +103,6 @@
         <!-- Login Link -->
         <div class="mt-6 text-center">
           <p class="text-gray-500">Already have an account? <a href="{{ route('login') }}" class="text-primary-600 font-semibold hover:underline">Sign In</a></p>
-        </div>
-
-        <!-- Divider -->
-        <div class="mt-6 flex items-center gap-4">
-          <hr class="flex-1 border-gray-200">
-          <span class="text-gray-400 text-sm">or continue with</span>
-          <hr class="flex-1 border-gray-200">
-        </div>
-
-        <!-- Social Buttons -->
-        <div class="mt-6 grid grid-cols-2 gap-3">
-          <button class="border-2 border-gray-200 rounded-xl py-3 flex items-center justify-center gap-2 hover:border-gray-400 transition font-medium">
-            <i class="fa-brands fa-google text-red-500"></i> Google
-          </button>
-          <button class="border-2 border-gray-200 rounded-xl py-3 flex items-center justify-center gap-2 hover:border-gray-400 transition font-medium">
-            <i class="fa-brands fa-facebook text-blue-600"></i> Facebook
-          </button>
         </div>
       </div>
 
