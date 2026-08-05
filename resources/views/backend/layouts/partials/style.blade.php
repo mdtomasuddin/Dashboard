@@ -330,11 +330,11 @@
     }
 
     .nav-arrow.rotated {
-        transform: rotate(0deg);
+        transform: rotate(180deg);
     }
 
     .nav-arrow:not(.rotated) {
-        transform: rotate(-90deg);
+        transform: rotate(0deg);
     }
 
     .nav-submenu {
@@ -430,7 +430,6 @@
         border-bottom: none !important;
     }
 
-    /* DataTable Custom Styles */
 </style>
 <!--end: Custom Styles-->
 <!--end::exam-->

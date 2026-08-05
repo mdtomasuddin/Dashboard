@@ -56,7 +56,7 @@
     <script>
         // Initialize DataTable with server-side processing
         $(document).ready(function() {
-            const table = $('#users-table').DataTable({
+        const table = $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('users.index') }}",
