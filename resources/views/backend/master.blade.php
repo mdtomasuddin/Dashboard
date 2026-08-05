@@ -87,12 +87,16 @@
         @include('backend.layouts.partials.header')
 
         <!-- Main Content -->
-        <main class="h-[calc(100vh-8rem)] overflow-y-auto p-4 lg:p-6">
-            <!--begin::exam-->
-            @yield('content')
-            <!--end::exam-->
-            <!-- Footer -->
-            @include('backend.layouts.partials.footer')
+        {{-- <main class="h-[calc(100vh-8rem)] overflow-y-auto p-4 lg:p-6"> --}}
+        <main
+            class="h-[calc(100vh-4rem)] overflow-y-auto p-4 sm:p-6 lg:p-8 bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+            <div class="w-full space-y-6">
+                <!--begin::exam-->
+                @yield('content')
+                <!--end::exam-->
+                <!-- Footer -->
+                @include('backend.layouts.partials.footer')
+            </div>
         </main>
     </div>
 

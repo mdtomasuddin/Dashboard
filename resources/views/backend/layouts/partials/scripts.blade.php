@@ -15,6 +15,8 @@
 </script>
 
 <!--begin: Vendor JS -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{ asset('assets/backend/vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('assets/backend/vendor/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('assets/backend/vendor/datatables/dataTables.min.js') }}"></script>
@@ -22,6 +24,27 @@
 <!--end: Vendor JS -->
 
 <script>
+    // Global Lenis Smooth Scroll Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+        const mainScrollEl = document.querySelector('main');
+        if (mainScrollEl && typeof Lenis !== 'undefined') {
+            window.lenis = new Lenis({
+                wrapper: mainScrollEl,
+                content: mainScrollEl.firstElementChild,
+                smoothWheel: true,
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            });
+
+            function raf(time) {
+                window.lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+
+            requestAnimationFrame(raf);
+        }
+    });
+
     // Starting Global Toastr options
     toastr.options = {
         "closeButton": true,

@@ -436,6 +436,7 @@
 <!--end::exam-->
 
 <!--begin: Vendor CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css" />
 <link rel="stylesheet" href="{{ asset('assets/backend/vendor/datatables/dataTables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/backend/vendor/sweetalert2/sweetalert2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/backend/vendor/toastr/toastr.min.css') }}" />

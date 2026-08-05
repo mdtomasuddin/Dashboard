@@ -31,72 +31,85 @@
 
     <!--begin::SidebarNav-->
     <nav class="flex-1 overflow-y-auto overflow-x-hidden py-2 px-3" id="sidebar-menu">
-        <ul class="flex flex-col" id="sideNavbar">
+        <ul class="flex flex-col gap-1" id="sideNavbar">
 
             <!--begin::OverviewHeading-->
-            <li class="nav-item">
+            <li class="nav-item" x-show="isSidebarExpanded()" x-cloak x-transition.opacity>
                 <div
-                    class="navbar-heading px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                    class="navbar-heading px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 whitespace-nowrap">
                     Overview</div>
             </li>
             <!--end::OverviewHeading-->
 
             <!--begin::DashboardLink-->
             <li class="nav-item">
-                <a class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-                    <i class="fa-solid fa-chart-pie nav-icon"></i>Dashboard
+                <a class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}"
+                    :title="!isSidebarExpanded() ? 'Dashboard' : ''">
+                    <i class="fa-solid fa-chart-pie nav-icon"></i>
+                    <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                        class="whitespace-nowrap">Dashboard</span>
                 </a>
             </li>
             <!--end::DashboardLink-->
 
             <!--begin::UserManagementHeading-->
-            <li class="nav-item">
+            <li class="nav-item" x-show="isSidebarExpanded()" x-cloak x-transition.opacity>
                 <div
-                    class="navbar-heading px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                    class="navbar-heading px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 whitespace-nowrap">
                     User Management</div>
             </li>
             <!--end::UserManagementHeading-->
 
             <!--begin::UsersLink-->
             <li class="nav-item">
-                <a class="nav-link {{ Route::is('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                    <i class="fa-solid fa-users nav-icon"></i>Users
+                <a class="nav-link {{ Route::is('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}"
+                    :title="!isSidebarExpanded() ? 'Users' : ''">
+                    <i class="fa-solid fa-users nav-icon"></i>
+                    <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                        class="whitespace-nowrap">Users</span>
                 </a>
             </li>
             <!--end::UsersLink-->
-
-
 
             <!--begin::ContentManagementHeading-->
             @php
                 $contentOpen = request()->routeIs('terms-and-conditions.*') || request()->routeIs('privacy-policy.*');
             @endphp
-            <li class="nav-item">
+            <li class="nav-item" x-show="isSidebarExpanded()" x-cloak x-transition.opacity>
                 <div
-                    class="navbar-heading px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                    class="navbar-heading px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 whitespace-nowrap">
                     Content Management</div>
             </li>
             <!--end::ContentManagementHeading-->
             <!--begin::ContentManagementDropdown-->
             <li class="nav-item" x-data="{ open: {{ $contentOpen ? 'true' : 'false' }} }">
-                <button @click="open = !open" class="nav-link nav-toggle w-full text-left"
-                    :class="open ? 'active' : ''">
+                <button @click="isSidebarExpanded() ? (open = !open) : (sidebarOpen = true)"
+                    class="nav-link nav-toggle w-full text-left" :class="open ? 'active' : ''"
+                    :title="!isSidebarExpanded() ? 'Content' : ''">
                     <i class="fa-solid fa-file-pen nav-icon"></i>
-                    <span class="flex-1 text-left">Content</span>
-                    <i class="fa-solid fa-chevron-down nav-arrow" :class="open ? 'rotated' : ''"></i>
+                    <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                        class="flex-1 text-left whitespace-nowrap">Content</span>
+                    <i x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                        class="fa-solid fa-chevron-down nav-arrow" :class="open ? 'rotated' : ''"></i>
                 </button>
                 <!--begin::ContentSubmenu-->
-                <div x-show="open" x-collapse.duration.200ms class="nav-submenu">
-                    <ul class="flex flex-col">
+                <div x-show="open && isSidebarExpanded()" x-collapse.duration.200ms class="nav-submenu">
+                    <ul class="flex flex-col gap-1">
                         <li class="nav-item">
                             <a class="nav-link nav-sub-link {{ request()->routeIs('terms-and-conditions.*') ? 'active' : '' }}"
                                 href="{{ route('terms-and-conditions.index') }}">
-                                <i class="fa-solid fa-file-contract sub-icon"></i>Terms &amp; Conditions</a>
+                                <i class="fa-solid fa-file-contract sub-icon"></i>
+                                <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                                    class="whitespace-nowrap">Terms &amp; Conditions</span>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link nav-sub-link {{ request()->routeIs('privacy-policy.*') ? 'active' : '' }}"
                                 href="{{ route('privacy-policy.index') }}">
-                                <i class="fa-solid fa-shield-halved sub-icon"></i>Privacy Policy</a>
+                                <i class="fa-solid fa-shield-halved sub-icon"></i>
+                                <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                                    class="whitespace-nowrap">Privacy Policy</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -104,15 +117,10 @@
             </li>
             <!--end::ContentManagementDropdown-->
 
-
-
-
-
-
             <!--begin::SystemSettingsHeading-->
-            <li class="nav-item">
+            <li class="nav-item" x-show="isSidebarExpanded()" x-cloak x-transition.opacity>
                 <div
-                    class="navbar-heading px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                    class="navbar-heading px-3 pt-4 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 whitespace-nowrap">
                     System Settings</div>
             </li>
             <!--end::SystemSettingsHeading-->
@@ -126,34 +134,49 @@
             @endphp
             <!--begin::SettingsDropdown-->
             <li class="nav-item" x-data="{ open: {{ $settingsOpen ? 'true' : 'false' }} }">
-                <button @click="open = !open" class="nav-link nav-toggle w-full text-left"
-                    :class="open ? 'active' : ''">
+                <button @click="isSidebarExpanded() ? (open = !open) : (sidebarOpen = true)"
+                    class="nav-link nav-toggle w-full text-left" :class="open ? 'active' : ''"
+                    :title="!isSidebarExpanded() ? 'Settings' : ''">
                     <i class="fa-solid fa-gear nav-icon"></i>
-                    <span class="flex-1 text-left">Settings</span>
-                    <i class="fa-solid fa-chevron-down nav-arrow" :class="open ? 'rotated' : ''"></i>
+                    <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                        class="flex-1 text-left whitespace-nowrap">Settings</span>
+                    <i x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                        class="fa-solid fa-chevron-down nav-arrow" :class="open ? 'rotated' : ''"></i>
                 </button>
                 <!--begin::SettingsSubmenu-->
-                <div x-show="open" x-collapse.duration.200ms class="nav-submenu">
-                    <ul class="flex flex-col">
+                <div x-show="open && isSidebarExpanded()" x-collapse.duration.200ms class="nav-submenu">
+                    <ul class="flex flex-col gap-1">
                         <li class="nav-item">
                             <a class="nav-link nav-sub-link {{ Route::is('mail-setting.*') ? 'active' : '' }}"
                                 href="{{ route('mail-setting.index') }}">
-                                <i class="fa-solid fa-envelope sub-icon"></i>Mail Configuration</a>
+                                <i class="fa-solid fa-envelope sub-icon"></i>
+                                <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                                    class="whitespace-nowrap">Mail Configuration</span>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link nav-sub-link {{ request()->routeIs('database.export') ? 'active' : '' }}"
                                 href="{{ route('database.export') }}">
-                                <i class="fa-solid fa-database sub-icon"></i>Database Backup</a>
+                                <i class="fa-solid fa-database sub-icon"></i>
+                                <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                                    class="whitespace-nowrap">Database Backup</span>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link nav-sub-link {{ request()->routeIs('social-links.*') ? 'active' : '' }}"
                                 href="{{ route('social-links.index') }}">
-                                <i class="fa-solid fa-link sub-icon"></i>Social Links</a>
+                                <i class="fa-solid fa-link sub-icon"></i>
+                                <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                                    class="whitespace-nowrap">Social Links</span>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link nav-sub-link {{ request()->routeIs('integration.setting') ? 'active' : '' }}"
                                 href="{{ route('integration.setting') }}">
-                                <i class="fa-solid fa-plug sub-icon"></i>Integrations</a>
+                                <i class="fa-solid fa-plug sub-icon"></i>
+                                <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                                    class="whitespace-nowrap">Integrations</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
