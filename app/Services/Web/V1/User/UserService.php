@@ -4,7 +4,6 @@ namespace App\Services\Web\V1\User;
 
 use App\Helpers\Helper;
 use App\Models\User;
-use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -13,17 +12,7 @@ use Illuminate\Support\Str;
 class UserService
 {
     /**
-     * Find user by ID.
-     */
-    public function find(int $id): Model | Collection | Builder | array | null
-    {
-        return User::query()->findOrFail($id);
-    }
-
-    /**
      * Create a new user.
-     * @param array $data
-     * @return Model|Builder
      */
     public function create(array $data): Model | Builder
     {
@@ -60,7 +49,7 @@ class UserService
      */
     public function update(int $id, array $data): Model | Collection | Builder | array | null
     {
-        $user = $this->find($id);
+        $user = User::query()->findOrFail($id);
 
         $userData = [
             'first_name' => $data['first_name'],
@@ -103,28 +92,6 @@ class UserService
         $user->update($userData);
 
         return $user->fresh();
-    }
-
-    /**
-     * Soft delete a user.
-     *
-     * @throws Exception
-     */
-    public function delete(int $id): ?bool
-    {
-        $user = $this->find($id);
-
-        // Delete avatar file if exists
-        if ($user->avatar) {
-            Helper::deleteFile($user->avatar);
-        }
-
-        // Delete cover file if exists
-        if ($user->cover) {
-            Helper::deleteFile($user->cover);
-        }
-
-        return $user->delete();
     }
 
     /**
