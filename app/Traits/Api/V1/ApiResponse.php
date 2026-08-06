@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits\V1;
+namespace App\Traits\Api\V1;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -177,4 +177,3 @@ trait ApiResponse
         return [$data, []];
     }
 }
-
