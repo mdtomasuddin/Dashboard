@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Api\V1\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Auth\ChangePasswordRequest;
 use App\Http\Requests\Api\V1\Auth\DeleteAccountRequest;
+use App\Http\Resources\Api\V1\Auth\ChangePasswordResource;
+use App\Http\Resources\Api\V1\Auth\DeleteAccountResource;
+use App\Http\Resources\Api\V1\Auth\LogoutResource;
+use App\Http\Resources\Api\V1\Auth\RefreshTokenResource;
 use App\Models\User;
 use App\Services\Api\V1\Auth\AuthenticatedAuthService;
 use App\Traits\Api\V1\ApiResponse;
@@ -27,11 +31,11 @@ class AuthenticatedAuthController extends Controller
     public function logout(): JsonResponse
     {
         try {
-            $this->authService->logout();
+            $result = $this->authService->logout();
 
-            return $this->success([], 'Successfully logged out.', 200);
+            return $this->success(new LogoutResource($result), 'Successfully logged out.', 200);
         } catch (Exception $e) {
-            return $this->error('Something went wrong: ' . $e->getMessage(), 500);
+            return $this->error('Something went wrong: '.$e->getMessage(), 500);
         }
     }
 
@@ -43,9 +47,9 @@ class AuthenticatedAuthController extends Controller
         try {
             $result = $this->authService->refresh();
 
-            return $this->success($result, 'Token refreshed successfully.', 200);
+            return $this->success(new RefreshTokenResource($result), 'Token refreshed successfully.', 200);
         } catch (Exception $e) {
-            return $this->unauthorized('Failed to refresh token: ' . $e->getMessage());
+            return $this->unauthorized('Failed to refresh token: '.$e->getMessage());
         }
     }
 
@@ -58,15 +62,15 @@ class AuthenticatedAuthController extends Controller
             /** @var User $user */
             $user = auth('api')->user();
 
-            $this->authService->changePassword(
+            $result = $this->authService->changePassword(
                 $user,
                 $request->validated('current_password'),
                 $request->validated('new_password')
             );
 
-            return $this->success([], 'Password updated successfully.', 200);
+            return $this->success(new ChangePasswordResource($result), 'Password updated successfully.', 200);
         } catch (Exception $e) {
-            return $this->error('Something went wrong: ' . $e->getMessage(), 500);
+            return $this->error('Something went wrong: '.$e->getMessage(), 500);
         }
     }
 
@@ -79,11 +83,11 @@ class AuthenticatedAuthController extends Controller
             /** @var User $user */
             $user = auth('api')->user();
 
-            $this->authService->deleteAccount($user, $request->validated('password'));
+            $result = $this->authService->deleteAccount($user, $request->validated('password'));
 
-            return $this->success([], 'Your account has been deleted successfully.', 200);
+            return $this->success(new DeleteAccountResource($result), 'Your account has been deleted successfully.', 200);
         } catch (Exception $e) {
-            return $this->error('Something went wrong: ' . $e->getMessage(), 500);
+            return $this->error('Something went wrong: '.$e->getMessage(), 500);
         }
     }
 }

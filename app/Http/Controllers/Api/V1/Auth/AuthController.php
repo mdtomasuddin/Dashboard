@@ -8,6 +8,11 @@ use App\Http\Requests\Api\V1\Auth\RegisterRequest;
 use App\Http\Requests\Api\V1\Auth\ResetPasswordRequest;
 use App\Http\Requests\Api\V1\Auth\SendOtpRequest;
 use App\Http\Requests\Api\V1\Auth\VerifyOtpRequest;
+use App\Http\Resources\Api\V1\Auth\LoginUserResource;
+use App\Http\Resources\Api\V1\Auth\RegisterUserResource;
+use App\Http\Resources\Api\V1\Auth\ResetPasswordResource;
+use App\Http\Resources\Api\V1\Auth\SendOtpResource;
+use App\Http\Resources\Api\V1\Auth\VerifyOtpResource;
 use App\Services\Api\V1\Auth\AuthService;
 use App\Traits\Api\V1\ApiResponse;
 use Exception;
@@ -31,9 +36,9 @@ class AuthController extends Controller
         try {
             $result = $this->authService->register($request->validated());
 
-            return $this->success($result, 'User registered successfully. An OTP has been sent to your email.', 201);
+            return $this->success(new RegisterUserResource($result), 'User registered successfully. An OTP has been sent to your email.', 201);
         } catch (Exception $e) {
-            return $this->error('Something went wrong: ' . $e->getMessage(), 500);
+            return $this->error('Something went wrong: '.$e->getMessage(), 500);
         }
     }
 
@@ -45,9 +50,9 @@ class AuthController extends Controller
         try {
             $result = $this->authService->login($request->validated());
 
-            return $this->success($result, 'Login successful.', 200);
+            return $this->success(new LoginUserResource($result), 'Login successful.', 200);
         } catch (Exception $e) {
-            return $this->error('Something went wrong: ' . $e->getMessage(), 500);
+            return $this->error('Something went wrong: '.$e->getMessage(), 500);
         }
     }
 
@@ -58,13 +63,13 @@ class AuthController extends Controller
     {
         try {
             $email = $request->validated('email');
-            $type  = $request->validated('type', 'email');
+            $type = $request->validated('type', 'email');
 
-            $this->authService->sendOtp($email, $type);
+            $otp = $this->authService->sendOtp($email, $type);
 
-            return $this->success([], 'OTP verification code sent successfully to your email.', 200);
+            return $this->success(new SendOtpResource($otp), 'OTP verification code sent successfully to your email.', 200);
         } catch (Exception $e) {
-            return $this->error('Something went wrong: ' . $e->getMessage(), 500);
+            return $this->error('Something went wrong: '.$e->getMessage(), 500);
         }
     }
 
@@ -75,13 +80,13 @@ class AuthController extends Controller
     {
         try {
             $email = $request->validated('email');
-            $otp   = $request->validated('otp');
+            $otp = $request->validated('otp');
 
-            $this->authService->verifyOtp($email, $otp);
+            $result = $this->authService->verifyOtp($email, $otp);
 
-            return $this->success([], 'OTP verified successfully.', 200);
+            return $this->success(new VerifyOtpResource($result), 'OTP verified successfully.', 200);
         } catch (Exception $e) {
-            return $this->error('Something went wrong: ' . $e->getMessage(), 500);
+            return $this->error('Something went wrong: '.$e->getMessage(), 500);
         }
     }
 
@@ -91,11 +96,11 @@ class AuthController extends Controller
     public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
         try {
-            $this->authService->resetPassword($request->validated());
+            $result = $this->authService->resetPassword($request->validated());
 
-            return $this->success([], 'Password reset successfully. You can now log in with your new password.', 200);
+            return $this->success(new ResetPasswordResource($result), 'Password reset successfully. You can now log in with your new password.', 200);
         } catch (Exception $e) {
-            return $this->error('Something went wrong: ' . $e->getMessage(), 500);
+            return $this->error('Something went wrong: '.$e->getMessage(), 500);
         }
     }
 }

@@ -11,9 +11,11 @@ class AuthenticatedAuthService
     /**
      * Logout current user.
      */
-    public function logout(): void
+    public function logout(): bool
     {
         auth('api')->logout();
+
+        return true;
     }
 
     /**
