@@ -17,16 +17,16 @@ class SystemSettingSeeder extends Seeder
             [
                 'title'               => 'T Dashboard',
                 'system_name'         => 'T Dashboard System',
-                'email'               => 'admin@tdashboard.com',
-                'phone'               => '+8801700000000',
-                'address'             => 'Dhaka, Bangladesh',
+                'email'               => 'mdtomasuddin1@gmail.com',
+                'phone'               => '+8801873050391',
+                'address'             => 'Sirajganj, Dhaka, Bangladesh',
                 'copyright_text'      => '© 2026 T Dashboard. All rights reserved.',
-                'description'         => 'Default System Settings Description for T Dashboard Administration System.',
-                'logo'                => 'backend/assets/images/logo.png',
-                'favicon'             => 'backend/assets/images/favicon.ico',
-                'timezone'            => 'Asia/Dhaka',
+                'description'         => '',
+                'logo'                => null,
+                'favicon'             => null,
+                'timezone'            => null,
                 'maintenance_mode'    => false,
-                'maintenance_message' => 'System is under maintenance. Please try again later.',
+                'maintenance_message' => null,
             ]
         );
     }

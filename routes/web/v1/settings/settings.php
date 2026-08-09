@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\V1\Settings\DatabaseBackup\DatabaseBackupController
 use App\Http\Controllers\Web\V1\Settings\Integration\IntegrationController;
 use App\Http\Controllers\Web\V1\Settings\Mail\MailController;
 use App\Http\Controllers\Web\V1\Settings\SocialMedia\SocialMediaController;
+use App\Http\Controllers\Web\V1\Settings\SystemSetting\SystemSettingController;
 use Illuminate\Support\Facades\Route;
 
 // ! Settings Routes
@@ -41,4 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ! Content Management
     Route::resource('terms-and-conditions', TermsAndConditionsController::class)->only(['index', 'store']);
     Route::resource('privacy-policy', PrivacyPolicyController::class)->only(['index', 'store']);
+
+    // ! System Settings
+    Route::resource('system-setting', SystemSettingController::class)->only(['index', 'store']);
 });

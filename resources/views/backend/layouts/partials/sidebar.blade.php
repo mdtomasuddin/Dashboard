@@ -126,6 +126,7 @@
             <!--end::SystemSettingsHeading-->
             @php
                 $settingsOpen =
+                    request()->routeIs('system-setting.*') ||
                     request()->routeIs('mail-setting.*') ||
                     request()->routeIs('database.export') ||
                     request()->routeIs('social-links.*') ||
@@ -147,7 +148,15 @@
                 <div x-show="open && isSidebarExpanded()" x-collapse.duration.200ms class="nav-submenu">
                     <ul class="flex flex-col gap-1">
                         <li class="nav-item">
-                            <a class="nav-link nav-sub-link {{ Route::is('mail-setting.*') ? 'active' : '' }}"
+                            <a class="nav-link nav-sub-link {{ request()->routeIs('system-setting.*') ? 'active' : '' }}"
+                                href="{{ route('system-setting.index') }}">
+                                <i class="fa-solid fa-sliders sub-icon"></i>
+                                <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                                    class="whitespace-nowrap">System Settings</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-sub-link {{ request()->routeIs('mail-setting.*') ? 'active' : '' }}"
                                 href="{{ route('mail-setting.index') }}">
                                 <i class="fa-solid fa-envelope sub-icon"></i>
                                 <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
