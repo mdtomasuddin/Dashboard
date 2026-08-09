@@ -20,24 +20,18 @@ class User extends Authenticatable implements JWTSubject
     // table name
     protected $table = 'users';
 
-    /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     */
+    // Get the identifier that will be stored in the subject claim of the JWT
     public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
     }
 
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array<string, mixed>
-     */
+    // Return custom claims to be added to the JWT
     public function getJWTCustomClaims(): array
     {
         return [
             'email' => $this->email,
-            'role' => $this->role,
+            'role'  => $this->role,
         ];
     }
 
@@ -45,30 +39,56 @@ class User extends Authenticatable implements JWTSubject
     protected function casts(): array
     {
         return [
-            'id' => 'integer',
-            'first_name' => 'string',
-            'last_name' => 'string',
-            'username' => 'string',
-            'phone' => 'string',
-            'birthday' => 'date',
-            'email' => 'string',
-            'avatar' => 'string',
-            'cover' => 'string',
-            'location' => 'string',
-            'role' => 'string',
-            'bio' => 'string',
-            'password' => 'hashed',
-            'email_verified_at' => 'datetime',
+            'id'                   => 'integer',
+            'first_name'           => 'string',
+            'last_name'            => 'string',
+            'username'             => 'string',
+            'phone'                => 'string',
+            'birthday'             => 'date',
+            'email'                => 'string',
+            'avatar'               => 'string',
+            'cover'                => 'string',
+            'location'             => 'string',
+            'role'                 => 'string',
+            'bio'                  => 'string',
+            'password'             => 'hashed',
+            'email_verified_at'    => 'datetime',
             'terms_and_conditions' => 'boolean',
-            'facebook_id' => 'string',
-            'google_id' => 'string',
-            'apple_id' => 'string',
-            'status' => 'string',
-            'remember_token' => 'string',
-            'created_at' => 'datetime',
-            'updated_at' => 'datetime',
-            'deleted_at' => 'datetime',
+            'facebook_id'          => 'string',
+            'google_id'            => 'string',
+            'apple_id'             => 'string',
+            'status'               => 'string',
+            'remember_token'       => 'string',
+            'created_at'           => 'datetime',
+            'updated_at'           => 'datetime',
+            'deleted_at'           => 'datetime',
         ];
+    }
+
+    // Accessor for the avatar attribute
+    public function getAvatarAttribute(?string $url): ?string
+    {
+        if ($url) {
+            if (strpos($url, 'http://') === 0 || strpos($url, 'https://') === 0) {
+                return $url;
+            } else {
+                return asset('/' . $url);
+            }
+        }
+        return null;
+    }
+
+    // Accessor for the cover attribute
+    public function getCoverAttribute(?string $url): ?string
+    {
+        if ($url) {
+            if (strpos($url, 'http://') === 0 || strpos($url, 'https://') === 0) {
+                return $url;
+            } else {
+                return asset('/' . $url);
+            }
+        }
+        return null;
     }
 
     // Relationships

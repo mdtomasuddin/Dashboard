@@ -135,3 +135,12 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 - Do NOT delete tests without approval.
 
 </laravel-boost-guidelines>
+
+# Project Rules
+
+## Formatting & Code Style
+- Always follow `phpfmt` and `PHP Intelephense` PSR-12 formatting & type standards for all PHP files.
+- Format arrays with aligned key-value assignment operators (`=>`).
+- Maintain clean, consistent spacing, strict type hints, and docblocks across all Controllers, Requests, Models, and Services.
+
+

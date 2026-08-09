@@ -14,11 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //add the individual seeders here
+        // add the individual seeders here
         $this->call([
             UserSeeder::class,
             SocialMediaSeeder::class,
             ContentSeeder::class,
+            SystemSettingSeeder::class,
         ]);
     }
 }
