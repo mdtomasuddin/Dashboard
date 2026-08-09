@@ -21,10 +21,10 @@ class SystemSettingSeeder extends Seeder
                 'phone'               => '+8801873050391',
                 'address'             => 'Sirajganj, Dhaka, Bangladesh',
                 'copyright_text'      => '© 2026 T Dashboard. All rights reserved.',
-                'description'         => '',
+                'description'         => null,
                 'logo'                => null,
                 'favicon'             => null,
-                'timezone'            => null,
+                'timezone'            => 'Asia/Dhaka',
                 'maintenance_mode'    => false,
                 'maintenance_message' => null,
             ]
