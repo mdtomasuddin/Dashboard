@@ -300,7 +300,7 @@
                                         <!-- begin:avatar-preview -->
                                         <div class="flex-shrink-0">
                                             <div id="avatar_preview_container"
-                                                class="w-28 h-28 rounded-xl bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center overflow-hidden relative group cursor-pointer"
+                                                class="w-28 h-28 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden relative group cursor-pointer"
                                                 onclick="document.getElementById('avatar_input').click()">
                                                 @if ($user->avatar)
                                                     <img id="avatar_preview" src="{{ $user->avatar }}"
@@ -333,7 +333,7 @@
                                             <div class="mt-1 flex items-center gap-2">
                                                 <label for="avatar_input"
                                                     class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-white transition-all cursor-pointer shadow-sm">
-                                                    <i class="fa-solid fa-upload"></i> Choose Image
+                                                    <i class="fa-solid fa-upload"></i> Choose
                                                 </label>
                                                 @if ($user->avatar)
                                                     <button type="button" onclick="removeAvatar()"

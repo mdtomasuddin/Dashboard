@@ -118,13 +118,6 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 - If you receive an "Illuminate\Foundation\ViteException: Unable to locate file in Vite manifest" error, you can run `npm run build` or ask the user to run `npm run dev` or `composer run dev`.
 
-=== pint/core rules ===
-
-# Laravel Pint Code Formatter
-
-- If you have modified any PHP files, you must run `vendor/bin/pint --dirty --format agent` before finalizing changes to ensure your code matches the project's expected style.
-- Do not run `vendor/bin/pint --test --format agent`, simply run `vendor/bin/pint --format agent` to fix any formatting issues.
-
 === pest/core rules ===
 
 ## Pest
@@ -140,6 +133,7 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 ## Formatting & Code Style
 - Always follow `phpfmt` and `PHP Intelephense` PSR-12 formatting & type standards for all PHP files.
+- Follow `Laravel Blade Formatter` standards for all `.blade.php` view files.
 - Format arrays with aligned key-value assignment operators (`=>`).
 - Maintain clean, consistent spacing, strict type hints, and docblocks across all Controllers, Requests, Models, and Services.
 
