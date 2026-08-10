@@ -73,7 +73,7 @@
 
             <!--begin::ContentManagementHeading-->
             @php
-                $contentOpen = request()->routeIs('terms-and-conditions.*') || request()->routeIs('privacy-policy.*');
+                $contentOpen = request()->routeIs('terms-and-conditions.*') || request()->routeIs('privacy-policy.*') || request()->routeIs('faqs.*');
             @endphp
             <li class="nav-item" x-show="isSidebarExpanded()" x-cloak x-transition.opacity>
                 <div
@@ -109,6 +109,14 @@
                                 <i class="fa-solid fa-shield-halved sub-icon"></i>
                                 <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
                                     class="whitespace-nowrap">Privacy Policy</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-sub-link {{ request()->routeIs('faqs.*') ? 'active' : '' }}"
+                                href="{{ route('faqs.index') }}">
+                                <i class="fa-solid fa-circle-question sub-icon"></i>
+                                <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                                    class="whitespace-nowrap">FAQs</span>
                             </a>
                         </li>
                     </ul>

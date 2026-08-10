@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\V1\Auth\ProfileController;
 use App\Http\Controllers\Web\V1\Settings\Content\PrivacyPolicyController;
 use App\Http\Controllers\Web\V1\Settings\Content\TermsAndConditionsController;
 use App\Http\Controllers\Web\V1\Settings\DatabaseBackup\DatabaseBackupController;
+use App\Http\Controllers\Web\V1\Settings\FAQ\FAQController;
 use App\Http\Controllers\Web\V1\Settings\Integration\IntegrationController;
 use App\Http\Controllers\Web\V1\Settings\Mail\MailController;
 use App\Http\Controllers\Web\V1\Settings\SocialMedia\SocialMediaController;
@@ -42,6 +43,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ! Content Management
     Route::resource('terms-and-conditions', TermsAndConditionsController::class)->only(['index', 'store']);
     Route::resource('privacy-policy', PrivacyPolicyController::class)->only(['index', 'store']);
+    // ! FAQs
+    Route::resource('faqs', FAQController::class);
+    Route::post('faq/status/{id}', [FAQController::class, 'status'])->name('faqs.status');
 
     // ! System Settings
     Route::resource('system-setting', SystemSettingController::class)->only(['index', 'store']);
