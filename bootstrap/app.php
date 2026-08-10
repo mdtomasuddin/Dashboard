@@ -15,12 +15,21 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use Illuminate\Support\Facades\Route;
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__ . '/../routes/web/web.php',
         api: __DIR__ . '/../routes/api/api.php',
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
+        then: function () {
+            Route::middleware(['web'])
+                ->group(base_path('routes/web/v1/auth/auth.php'));
+            Route::middleware(['web', 'auth', 'verified'])->prefix('admin')
+                ->group(base_path('routes/web/web.php'));
+            Route::middleware(['web', 'auth', 'verified'])->prefix('admin')
+                ->group(base_path('routes/web/v1/settings/settings.php'));
+        },
     )
     ->withMiddleware(function (Middleware $middleware): void {
         //
