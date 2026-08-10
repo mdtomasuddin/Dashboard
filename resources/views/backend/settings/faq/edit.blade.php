@@ -51,19 +51,6 @@
                 </div>
                 <!-- end:question -->
 
-                <!-- begin:status -->
-                <div class="col-span-12 flex flex-col gap-1.5">
-                    <label for="status" class="form-label"> Status <span class="text-red-500">*</span> </label>
-                    <select name="status" id="status" class="form-input @error('status') is-invalid @enderror" required>
-                        <option value="active" {{ old('status', $faq->status) === 'active' ? 'selected' : '' }}>Active</option>
-                        <option value="inactive" {{ old('status', $faq->status) === 'inactive' ? 'selected' : '' }}>Inactive</option>
-                    </select>
-                    @error('status')
-                        <span class="input-error">{{ $message }}</span>
-                    @enderror
-                </div>
-                <!-- end:status -->
-
                 <!-- begin:answer -->
                 <div class="col-span-12 flex flex-col gap-1.5">
                     <label for="summernote" class="form-label"> Answer <span class="text-red-500">*</span> </label>

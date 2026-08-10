@@ -24,7 +24,7 @@ class FAQRequest extends FormRequest
         return [
             'question' => ['required', 'string', 'max:1000'],
             'answer'   => ['required', 'string'],
-            'status'   => ['required', 'in:active,inactive'],
+            'status'   => ['nullable', 'in:active,inactive'],
         ];
     }
 
@@ -38,8 +38,7 @@ class FAQRequest extends FormRequest
         return [
             'question.required' => 'The FAQ question field is required.',
             'answer.required'   => 'The FAQ answer field is required.',
-            'status.required'   => 'Please select a status for the FAQ.',
-            'status.in'         => 'Status must be either active or inactive.',
         ];
     }
 }
+

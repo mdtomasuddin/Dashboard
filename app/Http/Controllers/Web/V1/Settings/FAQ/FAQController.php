@@ -29,16 +29,16 @@ class FAQController extends Controller
             $query = FAQ::query()->latest();
 
             return DataTables::of($query)
-                ->addColumn('question', function (FAQ $faq) {
+                ->editColumn('question', function (FAQ $faq) {
                     return $faq->question ? e(Str::limit($faq->question, 50)) : 'N/A';
                 })
-                ->addColumn('answer', function (FAQ $faq) {
+                ->editColumn('answer', function (FAQ $faq) {
                     $plainAnswer = strip_tags($faq->answer);
 
                     return $plainAnswer ? e(Str::limit($plainAnswer, 50)) : 'N/A';
                 })
                 ->addColumn('created_at', function ($data) {
-                    return $data->created_at ? $data->created_at->format('d-m-y') : 'N/A';
+                    return $data->created_at ? $data->created_at->format('m/d/Y') : 'N/A';
                 })
                 ->addColumn('status', function (FAQ $faq) {
                     $checked = $faq->status === 'active' ? 'checked' : '';
