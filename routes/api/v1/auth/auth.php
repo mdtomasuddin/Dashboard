@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\AuthenticatedAuthController;
+use App\Http\Controllers\Api\V1\Auth\SocialiteController;
 use Illuminate\Support\Facades\Route;
 
 // ! auth routes here
@@ -10,6 +11,7 @@ Route::prefix('v1/auth')->group(function () {
     // ! Public Routes (Guest)
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('socialite-login', [SocialiteController::class, 'socialiteLogin']);
 
     // ! Password Recovery Routes
     Route::post('otp-send', [AuthController::class, 'sendOtp']);
