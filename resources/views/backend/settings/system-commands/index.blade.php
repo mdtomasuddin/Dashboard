@@ -96,7 +96,7 @@
                                 <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500"></div>
                             </div>
                             <span class="ml-1 sm:ml-2 text-slate-600 dark:text-gray-400 text-[10px] sm:text-[11px] truncate">
-                                bash - {{ auth()->user()->first_name ?? 'artisan' }}@volgenteam ~ {{ $lastRun['command'] }}
+                                bash - mdtomasuddin ~ {{ $lastRun['command'] }}
                             </span>
                         </div>
                         <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
