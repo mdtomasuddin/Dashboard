@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\V1\Auth\NewPasswordController;
 use App\Http\Controllers\Web\V1\Auth\PasswordController;
 use App\Http\Controllers\Web\V1\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Web\V1\Auth\RegisteredUserController;
+use App\Http\Controllers\Web\V1\Auth\SocialiteController;
 use App\Http\Controllers\Web\V1\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,4 +34,15 @@ Route::middleware('auth')->group(function () {
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Socialite Authentication Routes
+|--------------------------------------------------------------------------
+*/
+Route::controller(SocialiteController::class)->group(function () {
+    Route::get('/login/google', 'redirectToGoogle')->name('google.redirect');
+    Route::get('/login/google/callback', 'handleGoogleCallback')->name('google.callback');
+    Route::get('/google-refresh-token', 'refreshGoogleToken')->name('google.refresh');
 });
