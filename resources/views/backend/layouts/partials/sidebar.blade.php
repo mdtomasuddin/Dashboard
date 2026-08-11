@@ -135,6 +135,7 @@
             @php
                 $settingsOpen =
                     request()->routeIs('system-setting.*') ||
+                    request()->routeIs('system.commands.*') ||
                     request()->routeIs('mail-setting.*') ||
                     request()->routeIs('database.export') ||
                     request()->routeIs('social-links.*') ||
@@ -161,6 +162,14 @@
                                 <i class="fa-solid fa-sliders sub-icon"></i>
                                 <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
                                     class="whitespace-nowrap">System Settings</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-sub-link {{ request()->routeIs('system.commands.*') ? 'active' : '' }}"
+                                href="{{ route('system.commands.index') }}">
+                                <i class="fa-solid fa-terminal sub-icon"></i>
+                                <span x-show="isSidebarExpanded()" x-cloak x-transition.opacity
+                                    class="whitespace-nowrap">System Commands</span>
                             </a>
                         </li>
                         <li class="nav-item">

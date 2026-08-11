@@ -8,8 +8,15 @@ use App\Http\Controllers\Web\V1\Settings\FAQ\FAQController;
 use App\Http\Controllers\Web\V1\Settings\Integration\IntegrationController;
 use App\Http\Controllers\Web\V1\Settings\Mail\MailController;
 use App\Http\Controllers\Web\V1\Settings\SocialMedia\SocialMediaController;
+use App\Http\Controllers\Web\V1\Settings\SystemCommandController;
 use App\Http\Controllers\Web\V1\Settings\SystemSetting\SystemSettingController;
 use Illuminate\Support\Facades\Route;
+
+// ! System Utility Commands
+Route::controller(SystemCommandController::class)->group(function () {
+    Route::get('/system-commands', 'index')->name('system.commands.index');
+    Route::post('/system-commands/run', 'runCommand')->name('system.commands.run');
+});
 
 // ! Profile Routes
 Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
