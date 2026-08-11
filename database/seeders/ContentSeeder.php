@@ -39,9 +39,12 @@ class ContentSeeder extends Seeder
             ],
         ];
 
-        // Insert the data
+        // Insert or update the data
         foreach ($Data as $dataStore) {
-            Content::create($dataStore);
+            Content::updateOrCreate(
+                ['type' => $dataStore['type']],
+                $dataStore
+            );
         }
     }
 }

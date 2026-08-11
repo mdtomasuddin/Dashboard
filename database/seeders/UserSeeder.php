@@ -56,7 +56,10 @@ class UserSeeder extends Seeder
 
         // user data array loop to create users
         foreach ($userData as $data) {
-            User::create($data);
+            User::updateOrCreate(
+                ['email' => $data['email']],
+                $data
+            );
         }
     }
 }

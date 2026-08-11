@@ -42,9 +42,12 @@ class SocialMediaSeeder extends Seeder
             ],
         ];
 
-        // Insert the data into the database
+        // Insert or update the data into the database
         foreach ($data as $newData) {
-            SocialMedia::create($newData);
+            SocialMedia::updateOrCreate(
+                ['social_media' => $newData['social_media']],
+                $newData
+            );
         }
     }
 }
